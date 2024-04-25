@@ -1,0 +1,54 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+	<title>My website.</title>
+	<link>krishnayadav.xyz/tags/extraction/</link>
+	<description>Recent content in extraction on My website.</description>
+	<generator>Hugo -- gohugo.io</generator>
+	<language>en-us</language>
+	<lastBuildDate>Wed, 24 Apr 2024 21:53:31 +0530</lastBuildDate>
+    
+        <atom:link href="krishnayadav.xyz/tags/extraction/index.xml" rel="self" type="application/rss+xml" />
+	
+	
+	<item>
+		<title>Boot Image Extraction Guide</title>
+		<link>krishnayadav.xyz/bootimageextractionguide/</link>
+		<pubDate>Wed, 24 Apr 2024 21:53:31 +0530</pubDate>
+		
+		<guid>krishnayadav.xyz/bootimageextractionguide/</guid>
+		<description>&lt;!-- raw HTML omitted --&gt;
+&lt;h2 id=&#34;getting-started&#34;&gt;Getting started!&lt;/h2&gt;
+&lt;p&gt;Accessing and modifying system files on your device typically requires superuser permissions. To extract the boot image, we&amp;rsquo;ll need a root environment. We&amp;rsquo;ll achieve this by using Magisk.&lt;/p&gt;
+&lt;h4 id=&#34;manual-process&#34;&gt;Manual Process&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;First, make sure you install TWRP and then flash Magisk through it.&lt;/li&gt;
+&lt;li&gt;Setup Magisk in your phone.&lt;/li&gt;
+&lt;li&gt;Connect your phone to your Computer and type adb shell [Ensure that you have adb setup properly].&lt;/li&gt;
+&lt;li&gt;Now, become root by typing &lt;strong&gt;su&lt;/strong&gt; in the shell on your PC.&lt;/li&gt;
+&lt;li&gt;Copy/Paste the following code in the shell.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; PARTITION in &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot_a&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot_b&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+  BLOCK&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;find /dev/block &lt;span style=&#34;color:#ae81ff&#34;&gt;\(&lt;/span&gt; -type b -o -type c -o -type l &lt;span style=&#34;color:#ae81ff&#34;&gt;\)&lt;/span&gt; -iname &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$PARTITION&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; -print -quit 2&amp;gt;/dev/null&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; -n &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$BLOCK&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+    echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$PARTITION&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;readlink -f &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$BLOCK&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;fi&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This command will display the boot partition paths for both A/B and A-only devices.&lt;/p&gt;
+&lt;h1 id=&#34;note&#34;&gt;Note!&lt;/h1&gt;
+&lt;p&gt;On &lt;a href=&#34;https://source.android.com/docs/core/ota/ab&#34;&gt;A/B devices&lt;/a&gt;, the loop command will display the boot partition paths for both slots, something like this!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;boot_a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda40
+boot_b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda41
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this case, you can extract the image corresponding to your currently active slot.To determine the active slot, enter the command &lt;code&gt;getprop ro.boot.slot_suffix&lt;/code&gt;. If the output is _a, use the path for boot_a; otherwise, use the path for boot_b.&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Finally, use the following command to extract the image from the specified boot path:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;lt;boot_partition_path&amp;gt; of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;lt;output_path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/dev/block/mmcblk0p42 of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/sdcard/boot_a.img
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I hope this did work for you, as it did indeed work for me!&lt;/p&gt;
+&lt;p&gt;CREDITS : &lt;a href=&#34;https://gist.github.com/gitclone-url/a1f693b64d8f8701ec24477a2ccaab87&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;
+</description>
+	</item>
+	
+	</channel>
+</rss>
