@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Boot Image Extraction Guide | My website.</title>
+	<link rel="canonical" href="">
+	<link rel='alternate' type='application/rss+xml' title="My website. RSS" href='/index.xml'>
+	<link rel='stylesheet' type='text/css' href='/style.css'>
+	<link rel="icon" href="/favicon.ico">
+	<meta name="description" content="Guide on how to extract a boot image from any Android phone [Requires Magisk and Computer]
+Getting started! Accessing and modifying system files on your device typically requires superuser permissions. To extract the boot image, we&rsquo;ll need a root environment. We&rsquo;ll achieve this by using Magisk.
+Manual Process  First, make sure you install TWRP and then flash Magisk through it. Setup Magisk in your phone. Connect your phone to your Computer and type adb shell [Ensure that you have adb setup properly].">
+	<meta name="keywords" content="extraction, guide, android">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index, follow">
+	<meta charset="utf-8">
+</head>
+<body>
+<main>
+<header><h1 id="tag_Boot Image Extraction Guide">Boot Image Extraction Guide</h1></header>
+<article>
+
+<p>Guide on how to extract a boot image from any Android phone [Requires Magisk and Computer]</p>
+<h2 id="getting-started">Getting started!</h2>
+<p>Accessing and modifying system files on your device typically requires superuser permissions. To extract the boot image, we&rsquo;ll need a root environment. We&rsquo;ll achieve this by using Magisk.</p>
+<h4 id="manual-process">Manual Process</h4>
+<ol>
+<li>First, make sure you install TWRP and then flash Magisk through it.</li>
+<li>Setup Magisk in your phone.</li>
+<li>Connect your phone to your Computer and type adb shell [Ensure that you have adb setup properly].</li>
+<li>Now, become root by typing <strong>su</strong> in the shell on your PC.</li>
+<li>Copy/Paste the following code in the shell.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> PARTITION in <span style="color:#e6db74">&#34;boot&#34;</span> <span style="color:#e6db74">&#34;boot_a&#34;</span> <span style="color:#e6db74">&#34;boot_b&#34;</span>; <span style="color:#66d9ef">do</span>
+  BLOCK<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>find /dev/block <span style="color:#ae81ff">\(</span> -type b -o -type c -o -type l <span style="color:#ae81ff">\)</span> -iname <span style="color:#e6db74">&#34;</span>$PARTITION<span style="color:#e6db74">&#34;</span> -print -quit 2&gt;/dev/null<span style="color:#66d9ef">)</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$BLOCK<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    echo <span style="color:#e6db74">&#34;</span>$PARTITION<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">$(</span>readlink -f <span style="color:#e6db74">&#34;</span>$BLOCK<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+  <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">done</span>
+</code></pre></div><p>This command will display the boot partition paths for both A/B and A-only devices.</p>
+<h1 id="note">Note!</h1>
+<p>On <a href="https://source.android.com/docs/core/ota/ab">A/B devices</a>, the loop command will display the boot partition paths for both slots, something like this!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">boot_a <span style="color:#f92672">=</span> /dev/block/sda40
+boot_b <span style="color:#f92672">=</span> /dev/block/sda41
+</code></pre></div><p>In this case, you can extract the image corresponding to your currently active slot.To determine the active slot, enter the command <code>getprop ro.boot.slot_suffix</code>. If the output is _a, use the path for boot_a; otherwise, use the path for boot_b.</p>
+<ol start="6">
+<li>Finally, use the following command to extract the image from the specified boot path:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>&lt;boot_partition_path&gt; of<span style="color:#f92672">=</span>&lt;output_path&gt;
+</code></pre></div><p>For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/block/mmcblk0p42 of<span style="color:#f92672">=</span>/sdcard/boot_a.img
+</code></pre></div><p>I hope this did work for you, as it did indeed work for me!</p>
+<p>CREDITS : <a href="https://gist.github.com/gitclone-url/a1f693b64d8f8701ec24477a2ccaab87">Here</a></p>
+
+
+<div id="nextprev"><a href="/blog/ubuntutouchportpart1/"><div id="nextart">Next:<br>Ubuntu Touch Port Part 1</div></a>
+</div>
+<div style="clear:both" class=taglist>Related<br><a id="tag_extraction" href="tags/extraction">Extraction</a> &middot; <a id="tag_guide" href="tags/guide">Guide</a> &middot; <a id="tag_android" href="tags/android">Android</a></div>
+</article>
+</main>
+
+<footer>
+	<a href=""></a><br><br><a href="/index.xml"><img src="/rss.svg" style="max-height:1.5em" alt="RSS Feed" title="Subscribe via RSS for updates."></a>
+</footer>
+
+</body>
+</html>

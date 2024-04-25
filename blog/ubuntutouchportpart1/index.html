@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ubuntu Touch Port Part 1 | My website.</title>
+	<link rel="canonical" href="">
+	<link rel='alternate' type='application/rss+xml' title="My website. RSS" href='/index.xml'>
+	<link rel='stylesheet' type='text/css' href='/style.css'>
+	<link rel="icon" href="/favicon.ico">
+	<meta name="description" content="Getting Started So I recently decided to get more involved in the Android world and came about a &lsquo;new&rsquo; type of OS, known as Ubuntu Touch. I thought a bit on it and decided to start the porting process for it for my device Realme GT Neo 2 [codenamed:bitra].
+I started with the official documentation of UBports where in they gave some good amount of introduction on how and why certain things needed to be done.">
+	<meta name="keywords" content="android, ubuntu, UT">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index, follow">
+	<meta charset="utf-8">
+</head>
+<body>
+<main>
+<header><h1 id="tag_Ubuntu Touch Port Part 1">Ubuntu Touch Port Part 1</h1></header>
+<article>
+
+<h1 id="getting-started">Getting Started</h1>
+<p>So I recently decided to get more involved in the Android world and came about a &lsquo;new&rsquo; type of OS, known as Ubuntu Touch. I thought a bit on it and decided to start the porting process for it for my device Realme GT Neo 2 [codenamed:bitra].</p>
+<p>I started with the <a href="https://docs.ubports.com/en/latest/porting/introduction/index.html">official documentation of UBports</a> where in they gave some good amount of introduction on how and why certain things needed to be done.</p>
+<p>The guide mentions the use of GSI for devices with Android 8+ and, as my device is indeed treble supported, I think I will head to using GSI only.</p>
+<p><a href="https://docs.ubports.com/en/latest/porting/build_and_boot/standalone_kernel_build.html">Standalone Kernel Method (Halium 9 and newer)</a> is very interesting as it seems to be the least tiresome way for porting among all of the 3 mentioned methods. So I started with this and did the steps as mentioned in the guide.</p>
+<p>The defconfig that i had to use is the <a href="https://gitlab.com/Krishna-Yadav/android_kernel_realme_sm8250/-/blob/master/arch/arm64/configs/vendor/sm8250_defconfig?ref_type=heads">sm8250_defconfig</a>. Next i made a halium.config file as prompted.</p>
+<p>Next, i had to fill in the deviceinfo file. For this purpose, I used the <a href="https://gitlab.com/ubports/porting/community-ports/android11/xiaomi-poco-x3-pro/xiaomi-vayu">Poco X3 Pro device branch</a> as a dummy template and started filling stuff according to it and the guide.</p>
+<p>But I got stuck on the <em>deviceinfo_bootimg_prebuilt_dtb</em> step as i was not sure where to find my dtb. So i asked this question in the telegram group of Ubports and was recommended to run a script on the <a href="/bootimageextractionguide/index.html">boot.img which i had extracted</a>.</p>
+<p>The script was by LOS. It can be found <a href="https://raw.githubusercontent.com/LineageOS/android_system_tools_mkbootimg/lineage-18.1/unpack_bootimg.py">here</a> [use it through curl -O options]. And it worked! I was able to get the output from my boot.img using the script by running this command : <strong><code>python unpack_bootimg.py --boot_img boot.img</code></strong></p>
+<h2 id="the-scripts-output-in-normal-format"><strong>The script&rsquo;s output in normal format.</strong></h2>
+<p><img src="/img/pyScriptLOS18.png" alt=""></p>
+<p>But then, i was recommended to add the option <strong><code>--format mkbootimg</code></strong> along with the above command to get the outputed text in terms of mkbootimg arguments, as it would output the values that were expected for the <strong>deviceinfo</strong> file.</p>
+<p>Unfortunately for me though, adding that option to the command gave me an error : <strong><code>error: unrecognized arguments: --format mkbootimg</code></strong></p>
+<p>I then thought and checked the latest LOS branch from where i had got that previous script. And i did find an updated script from LOS21 that did have those options that i needed for mkbootimg format. The new script can be found <a href="https://raw.githubusercontent.com/LineageOS/android_system_tools_mkbootimg/lineage-21.0/unpack_bootimg.py">here</a></p>
+<p>After this, i ran the command again, now with the additional parameters to it and was indeed able to generate the output in mkbootimg format without any errors! The updated command : <strong><code>python unpack_bootimg.py --boot_img boot.img --format mkbootimg</code></strong></p>
+<h2 id="the-scripts-output-in-mkbootimg-format"><strong>The script&rsquo;s output in mkbootimg format.</strong></h2>
+<p><img src="/img/pyScriptLOS21.png" alt=""></p>
+<p>This has given me alot to work with now. I will be looking forward to progress even further and complete the deviceinfo file.</p>
+
+
+<div id="nextprev">
+<a href="/blog/bootimageextractionguide/"><div id="prevart">Previous:<br>Boot Image Extraction Guide</div></a>
+</div>
+<div style="clear:both" class=taglist>Related<br><a id="tag_android" href="tags/android">Android</a> &middot; <a id="tag_ubuntu" href="tags/ubuntu">Ubuntu</a> &middot; <a id="tag_ut" href="tags/ut">UT</a></div>
+</article>
+</main>
+
+<footer>
+	<a href=""></a><br><br><a href="/index.xml"><img src="/rss.svg" style="max-height:1.5em" alt="RSS Feed" title="Subscribe via RSS for updates."></a>
+</footer>
+
+</body>
+</html>

@@ -5,17 +5,17 @@
 	<description>Recent content in android on My website.</description>
 	<generator>Hugo -- gohugo.io</generator>
 	<language>en-us</language>
-	<lastBuildDate>Wed, 24 Apr 2024 21:53:31 +0530</lastBuildDate>
+	<lastBuildDate>Thu, 25 Apr 2024 13:38:00 +0530</lastBuildDate>
     
         <atom:link href="/tags/android/index.xml" rel="self" type="application/rss+xml" />
 	
 	
 	<item>
 		<title>Ubuntu Touch Port Part 1</title>
-		<link>/content/ubuntutouchportpart1/</link>
+		<link>/blog/ubuntutouchportpart1/</link>
 		<pubDate>Thu, 25 Apr 2024 13:38:00 +0530</pubDate>
 		
-		<guid>/content/ubuntutouchportpart1/</guid>
+		<guid>/blog/ubuntutouchportpart1/</guid>
 		<description>&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h1&gt;
 &lt;p&gt;So I recently decided to get more involved in the Android world and came about a &amp;lsquo;new&amp;rsquo; type of OS, known as Ubuntu Touch. I thought a bit on it and decided to start the porting process for it for my device Realme GT Neo 2 [codenamed:bitra].&lt;/p&gt;
 &lt;p&gt;I started with the &lt;a href=&#34;https://docs.ubports.com/en/latest/porting/introduction/index.html&#34;&gt;official documentation of UBports&lt;/a&gt; where in they gave some good amount of introduction on how and why certain things needed to be done.&lt;/p&gt;
@@ -39,10 +39,10 @@
 	
 	<item>
 		<title>Boot Image Extraction Guide</title>
-		<link>/content/bootimageextractionguide/</link>
+		<link>/blog/bootimageextractionguide/</link>
 		<pubDate>Wed, 24 Apr 2024 21:53:31 +0530</pubDate>
 		
-		<guid>/content/bootimageextractionguide/</guid>
+		<guid>/blog/bootimageextractionguide/</guid>
 		<description>&lt;p&gt;Guide on how to extract a boot image from any Android phone [Requires Magisk and Computer]&lt;/p&gt;
 &lt;h2 id=&#34;getting-started&#34;&gt;Getting started!&lt;/h2&gt;
 &lt;p&gt;Accessing and modifying system files on your device typically requires superuser permissions. To extract the boot image, we&amp;rsquo;ll need a root environment. We&amp;rsquo;ll achieve this by using Magisk.&lt;/p&gt;
