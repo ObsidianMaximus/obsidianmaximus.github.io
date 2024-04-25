@@ -1,20 +1,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
 	<title>My website.</title>
-	<link>krishnayadav.xyz/categories/</link>
+	<link>/categories/</link>
 	<description>Recent content in Categories on My website.</description>
 	<generator>Hugo -- gohugo.io</generator>
 	<language>en-us</language>
     
-        <atom:link href="krishnayadav.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
 	
 	
 	<item>
 		<title>Boot Image Extraction Guide</title>
-		<link>krishnayadav.xyz/bootimageextractionguide/</link>
+		<link>/bootimageextractionguide/</link>
 		<pubDate>Wed, 24 Apr 2024 21:53:31 +0530</pubDate>
 		
-		<guid>krishnayadav.xyz/bootimageextractionguide/</guid>
+		<guid>/bootimageextractionguide/</guid>
 		<description>&lt;!-- raw HTML omitted --&gt;
 &lt;h2 id=&#34;getting-started&#34;&gt;Getting started!&lt;/h2&gt;
 &lt;p&gt;Accessing and modifying system files on your device typically requires superuser permissions. To extract the boot image, we&amp;rsquo;ll need a root environment. We&amp;rsquo;ll achieve this by using Magisk.&lt;/p&gt;
