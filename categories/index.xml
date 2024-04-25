@@ -1,20 +1,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
 	<title>My website.</title>
-	<link>krishnayadav.xyz/categories/</link>
+	<link>/categories/</link>
 	<description>Recent content in Categories on My website.</description>
 	<generator>Hugo -- gohugo.io</generator>
 	<language>en-us</language>
     
-        <atom:link href="krishnayadav.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
 	
 	
 	<item>
 		<title>Ubuntu Touch Port Part 1</title>
-		<link>krishnayadav.xyz/blog/ubuntutouchportpart1/</link>
+		<link>/blog/ubuntutouchportpart1/</link>
 		<pubDate>Thu, 25 Apr 2024 13:38:00 +0530</pubDate>
 		
-		<guid>krishnayadav.xyz/blog/ubuntutouchportpart1/</guid>
+		<guid>/blog/ubuntutouchportpart1/</guid>
 		<description>&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h1&gt;
 &lt;p&gt;So I recently decided to get more involved in the Android world and came about a &amp;lsquo;new&amp;rsquo; type of OS, known as Ubuntu Touch. I thought a bit on it and decided to start the porting process for it for my device Realme GT Neo 2 [codenamed:bitra].&lt;/p&gt;
 &lt;p&gt;I started with the &lt;a href=&#34;https://docs.ubports.com/en/latest/porting/introduction/index.html&#34;&gt;official documentation of UBports&lt;/a&gt; where in they gave some good amount of introduction on how and why certain things needed to be done.&lt;/p&gt;
@@ -22,26 +22,26 @@
 &lt;p&gt;&lt;a href=&#34;https://docs.ubports.com/en/latest/porting/build_and_boot/standalone_kernel_build.html&#34;&gt;Standalone Kernel Method (Halium 9 and newer)&lt;/a&gt; is very interesting as it seems to be the least tiresome way for porting among all of the 3 mentioned methods. So I started with this and did the steps as mentioned in the guide.&lt;/p&gt;
 &lt;p&gt;The defconfig that i had to use is the &lt;a href=&#34;https://gitlab.com/Krishna-Yadav/android_kernel_realme_sm8250/-/blob/master/arch/arm64/configs/vendor/sm8250_defconfig?ref_type=heads&#34;&gt;sm8250_defconfig&lt;/a&gt;. Next i made a halium.config file as prompted.&lt;/p&gt;
 &lt;p&gt;Next, i had to fill in the deviceinfo file. For this purpose, I used the &lt;a href=&#34;https://gitlab.com/ubports/porting/community-ports/android11/xiaomi-poco-x3-pro/xiaomi-vayu&#34;&gt;Poco X3 Pro device branch&lt;/a&gt; as a dummy template and started filling stuff according to it and the guide.&lt;/p&gt;
-&lt;p&gt;But I got stuck on the &lt;em&gt;deviceinfo_bootimg_prebuilt_dtb&lt;/em&gt; step as i was not sure where to find my dtb. So i asked this question in the telegram group of Ubports and was recommended to run a script on the &lt;a href=&#34;krishnayadav.xyz/bootimageextractionguide/index.html&#34;&gt;boot.img which i had extracted&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;But I got stuck on the &lt;em&gt;deviceinfo_bootimg_prebuilt_dtb&lt;/em&gt; step as i was not sure where to find my dtb. So i asked this question in the telegram group of Ubports and was recommended to run a script on the &lt;a href=&#34;/bootimageextractionguide/index.html&#34;&gt;boot.img which i had extracted&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The script was by LOS. It can be found &lt;a href=&#34;https://raw.githubusercontent.com/LineageOS/android_system_tools_mkbootimg/lineage-18.1/unpack_bootimg.py&#34;&gt;here&lt;/a&gt; [use it through curl -O options]. And it worked! I was able to get the output from my boot.img using the script by running this command : &lt;strong&gt;&lt;code&gt;python unpack_bootimg.py --boot_img boot.img&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;the-scripts-output-in-normal-format&#34;&gt;&lt;strong&gt;The script&amp;rsquo;s output in normal format.&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;krishnayadav.xyz/img/pyScriptLOS18.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/pyScriptLOS18.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;But then, i was recommended to add the option &lt;strong&gt;&lt;code&gt;--format mkbootimg&lt;/code&gt;&lt;/strong&gt; along with the above command to get the outputed text in terms of mkbootimg arguments, as it would output the values that were expected for the &lt;strong&gt;deviceinfo&lt;/strong&gt; file.&lt;/p&gt;
 &lt;p&gt;Unfortunately for me though, adding that option to the command gave me an error : &lt;strong&gt;&lt;code&gt;error: unrecognized arguments: --format mkbootimg&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;I then thought and checked the latest LOS branch from where i had got that previous script. And i did find an updated script from LOS21 that did have those options that i needed for mkbootimg format. The new script can be found &lt;a href=&#34;https://raw.githubusercontent.com/LineageOS/android_system_tools_mkbootimg/lineage-21.0/unpack_bootimg.py&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;After this, i ran the command again, now with the additional parameters to it and was indeed able to generate the output in mkbootimg format without any errors! The updated command : &lt;strong&gt;&lt;code&gt;python unpack_bootimg.py --boot_img boot.img --format mkbootimg&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;the-scripts-output-in-mkbootimg-format&#34;&gt;&lt;strong&gt;The script&amp;rsquo;s output in mkbootimg format.&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;krishnayadav.xyz/img/pyScriptLOS21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/pyScriptLOS21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;This has given me alot to work with now. I will be looking forward to progress even further and complete the deviceinfo file.&lt;/p&gt;
 </description>
 	</item>
 	
 	<item>
 		<title>Boot Image Extraction Guide</title>
-		<link>krishnayadav.xyz/blog/bootimageextractionguide/</link>
+		<link>/blog/bootimageextractionguide/</link>
 		<pubDate>Wed, 24 Apr 2024 21:53:31 +0530</pubDate>
 		
-		<guid>krishnayadav.xyz/blog/bootimageextractionguide/</guid>
+		<guid>/blog/bootimageextractionguide/</guid>
 		<description>&lt;p&gt;Guide on how to extract a boot image from any Android phone [Requires Magisk and Computer]&lt;/p&gt;
 &lt;h2 id=&#34;getting-started&#34;&gt;Getting started!&lt;/h2&gt;
 &lt;p&gt;Accessing and modifying system files on your device typically requires superuser permissions. To extract the boot image, we&amp;rsquo;ll need a root environment. We&amp;rsquo;ll achieve this by using Magisk.&lt;/p&gt;
