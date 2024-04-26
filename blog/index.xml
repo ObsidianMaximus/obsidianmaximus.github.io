@@ -5,10 +5,59 @@
 	<description>Recent content in Blogs on My website.</description>
 	<generator>Hugo -- gohugo.io</generator>
 	<language>en-us</language>
-	<lastBuildDate>Thu, 25 Apr 2024 13:38:00 +0530</lastBuildDate>
+	<lastBuildDate>Fri, 26 Apr 2024 09:28:58 +0530</lastBuildDate>
     
         <atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
 	
+	
+	<item>
+		<title>Use SSH or Rsync With Android</title>
+		<link>/blog/use-ssh-or-rsync-with-android/</link>
+		<pubDate>Fri, 26 Apr 2024 09:28:58 +0530</pubDate>
+		
+		<guid>/blog/use-ssh-or-rsync-with-android/</guid>
+		<description>&lt;p&gt;Today, i wanted to send a file from my desktop to my android device. I thought of using rsync for this purpose, which is a tool that i use frequently to sync files between my desktop and my laptop.&lt;/p&gt;
+&lt;p&gt;I thought of giving it a try and came across &lt;a href=&#34;https://howtos.davidsebek.com/android-rsync-termux.html&#34;&gt;this great article&lt;/a&gt; that explained just this.&lt;/p&gt;
+&lt;h3 id=&#34;note-this-guide-requires-both-the-computer-and-the-android-device-to-be-on-the-same-wifi-network&#34;&gt;NOTE: This guide requires both the computer and the Android device to be on the same wifi network.&lt;/h3&gt;
+&lt;p&gt;The process to send files from PC to Android which i took was as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install rsync on termux using the command: &lt;strong&gt;&lt;code&gt;apt install rsync&lt;/code&gt;&lt;/strong&gt; and install openssh using the command: &lt;strong&gt;&lt;code&gt;apt install openssh&lt;/code&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Then setup the internal storage of our Android device to be accessible by termux using the command: &lt;strong&gt;&lt;code&gt;termux-setup-storage&lt;/code&gt;&lt;/strong&gt;. Grant termux the permission to access storage when prompted.&lt;/li&gt;
+&lt;li&gt;Now, change the sshd config file to allow termux to use SSH port. Termux does not have the permission to use the default SSH port 22, so we will use 60022 port instead. For doing this, edit the ../usr/etc/ssh/sshd_config file by simply using the command: &lt;strong&gt;&lt;code&gt;echo &amp;quot;Port 60022&amp;quot; &amp;gt;&amp;gt; ../usr/etc/ssh/sshd_config&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Let&amp;rsquo;s get the local ip address of our device by using the command: &lt;strong&gt;&lt;code&gt;ifconfig&lt;/code&gt;&lt;/strong&gt;. The ip address should be usually in the end and will be after &amp;ldquo;inet&amp;rdquo; . Or you can just go to Settings app and click on wifi and select the wifi you are connected to and look for the ipv4 address. In either of these 2 cases, the ip address should usually begin with &lt;strong&gt;192.168.xx.xx&lt;/strong&gt; where x&amp;rsquo;s are to be replaced by your ip address part.&lt;/li&gt;
+&lt;li&gt;Setup a password for the user by using the command: &lt;strong&gt;&lt;code&gt;passwd&lt;/code&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Finally, we have to start the SSH daemon. To do this, enter this in termux: &lt;strong&gt;&lt;code&gt;sshd -D&lt;/code&gt;&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;for-using-ssh-&#34;&gt;For using SSH :&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open terminal on your pc and type: &lt;strong&gt;&lt;code&gt;ssh -p 60022 192.168.xx.xx&lt;/code&gt;&lt;/strong&gt; [where the x&amp;rsquo;s are replaced by your ipv4 address part].&lt;/li&gt;
+&lt;li&gt;You should now be able to use android terminal through your desktop terminal.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;for-using-rsync-&#34;&gt;For using Rsync :&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Simply enter the command : &lt;strong&gt;&lt;code&gt;rsync -e &#39;ssh -p 60022&#39; &amp;lt;file to transfer from pc&amp;gt; 192.168.xx.xx:/storage/emulated/0/&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Explanation of some stuff in the above commands :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The -e command is used to specify the remote shell to use. For more details, check the manpage of rsync.&lt;/li&gt;
+&lt;li&gt;The x&amp;rsquo;s replace your ipv4 address parts.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;storage/emulated/0/&lt;/strong&gt; is the &amp;ldquo;usual&amp;rdquo; path of the main storage in our Android which the user can access, so we are sending the file from our desktop to our Android device&amp;rsquo;s internal storage using this. You can specify some folder to send the file into directly by simply adding the folder after &lt;strong&gt;0/&lt;/strong&gt; in the command.&lt;/li&gt;
+&lt;li&gt;This should work in vice-versa as well. Just add the path to copy from Android first and the path to copy to in your desktop after this.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;side-note&#34;&gt;Side Note:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;To avoid entering password all the time while accessing SSH/Rsync, generate a key pair on your pc using the command: &lt;strong&gt;&lt;code&gt;ssh-keygen&lt;/code&gt;&lt;/strong&gt; and then copy it to Android using the command: &lt;strong&gt;&lt;code&gt;ssh-copy-id -p 60022 192.168.xx.xx&lt;/code&gt;&lt;/strong&gt; in your desktop terminal. This will ask you password only once and after authenticating it, you can now just use SSH/Rsync without entering that password which we generated in the &amp;ldquo;Step 5&amp;rdquo; in the beginning.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;REMEMBER&lt;/strong&gt; that the ip address of your android device can change from time to time due to ip addresses being dynamic when using wifi. Or they &amp;ldquo;may&amp;rdquo; change if the router is restarted. In any case, be sure to repeat the &amp;ldquo;Step 4&amp;rdquo; which we did in the beginning to find our local ip address.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+	</item>
 	
 	<item>
 		<title>Ubuntu Touch Port Part 1</title>
