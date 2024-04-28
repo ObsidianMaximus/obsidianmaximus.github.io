@@ -26,20 +26,20 @@ NOTE: This guide requires both the computer and the Android device to be on the 
 <ol>
 <li>Install rsync on termux using the command: <strong><code>apt install rsync</code></strong> and install openssh using the command: <strong><code>apt install openssh</code></strong>.</li>
 <li>Then setup the internal storage of our Android device to be accessible by termux using the command: <strong><code>termux-setup-storage</code></strong>. Grant termux the permission to access storage when prompted.</li>
-<li>Now, change the sshd config file to allow termux to use SSH port. Termux does not have the permission to use the default SSH port 22, so we will use 60022 port instead. For doing this, edit the ../usr/etc/ssh/sshd_config file by simply using the command: <strong><code>echo &quot;Port 60022&quot; &gt;&gt; ../usr/etc/ssh/sshd_config</code></strong></li>
+<li>Now, change the sshd config file to allow termux to use SSH port. Termux does not have the permission to use the default SSH port 22, so we will use 8022 port instead. For doing this, edit the ../usr/etc/ssh/sshd_config file by simply using the command: <strong><code>echo &quot;Port 8022&quot; &gt;&gt; ../usr/etc/ssh/sshd_config</code></strong></li>
 <li>Let&rsquo;s get the local ip address of our device by using the command: <strong><code>ifconfig</code></strong>. The ip address should be usually in the end and will be after &ldquo;inet&rdquo; . Or you can just go to Settings app and click on wifi and select the wifi you are connected to and look for the ipv4 address. In either of these 2 cases, the ip address should usually begin with <strong>192.168.xx.xx</strong> where x&rsquo;s are to be replaced by your ip address part.</li>
 <li>Setup a password for the user by using the command: <strong><code>passwd</code></strong>.</li>
-<li>Finally, we have to start the SSH daemon. To do this, enter this in termux: <strong><code>sshd -D</code></strong>.</li>
+<li>Finally, we have to start the SSH daemon. To do this, enter this in termux: <strong><code>sshd</code></strong>.</li>
 </ol>
 <h3 id="for-using-ssh-">For using SSH :</h3>
 <ol>
-<li>Open terminal on your pc and type: <strong><code>ssh -p 60022 192.168.xx.xx</code></strong> [where the x&rsquo;s are replaced by your ipv4 address part].</li>
+<li>Open terminal on your pc and type: <strong><code>ssh -p 8022 192.168.xx.xx</code></strong> [where the x&rsquo;s are replaced by your ipv4 address part].</li>
 <li>You should now be able to use android terminal through your desktop terminal.</li>
 </ol>
 <h3 id="for-using-rsync-">For using Rsync :</h3>
 <ol>
 <li>
-<p>Simply enter the command : <strong><code>rsync -e 'ssh -p 60022' &lt;file to transfer from pc&gt; 192.168.xx.xx:/storage/emulated/0/</code></strong></p>
+<p>Simply enter the command : <strong><code>rsync -e 'ssh -p 8022' &lt;file to transfer from pc&gt; 192.168.xx.xx:/storage/emulated/0/</code></strong></p>
 <p>Explanation of some stuff in the above commands :</p>
 <ul>
 <li>The -e command is used to specify the remote shell to use. For more details, check the manpage of rsync.</li>
@@ -53,7 +53,7 @@ NOTE: This guide requires both the computer and the Android device to be on the 
 <h4 id="side-note">Side Note:</h4>
 <ul>
 <li>
-<p>To avoid entering password all the time while accessing SSH/Rsync, generate a key pair on your pc using the command: <strong><code>ssh-keygen</code></strong> and then copy it to Android using the command: <strong><code>ssh-copy-id -p 60022 192.168.xx.xx</code></strong> in your desktop terminal. This will ask you password only once and after authenticating it, you can now just use SSH/Rsync without entering that password which we generated in the &ldquo;Step 5&rdquo; in the beginning.</p>
+<p>To avoid entering password all the time while accessing SSH/Rsync, generate a key pair on your pc using the command: <strong><code>ssh-keygen</code></strong> and then copy it to Android using the command: <strong><code>ssh-copy-id -p 8022 192.168.xx.xx</code></strong> in your desktop terminal. This will ask you password only once and after authenticating it, you can now just use SSH/Rsync without entering that password which we generated in the &ldquo;Step 5&rdquo; in the beginning.</p>
 </li>
 <li>
 <p><strong>REMEMBER</strong> that the ip address of your android device can change from time to time due to ip addresses being dynamic when using wifi. Or they &ldquo;may&rdquo; change if the router is restarted. In any case, be sure to repeat the &ldquo;Step 4&rdquo; which we did in the beginning to find our local ip address.</p>
