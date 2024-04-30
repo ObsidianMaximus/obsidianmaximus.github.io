@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ubuntu Server Setup Part 1 | My website.</title>
+	<link rel="canonical" href="">
+	<link rel='alternate' type='application/rss+xml' title="My website. RSS" href='/index.xml'>
+	<link rel='stylesheet' type='text/css' href='/style.css'>
+	<link rel="icon" href="/favicon.ico">
+	<meta name="description" content="I was wanting to learn on how to setup my servers and host stuff on them, but to host a server online, one needs to spend some amount of money on them, which i really didn&rsquo;t want to. But then i remembered that i have one old dusty home computer that had been lying in my home since several years, while not really being used anymore.
+So i decided to use this opportunity to reuse the same computer for my server tasks and in this way, i will be saving up on those server costs that i would have to pay [electricity is cheap here].">
+	<meta name="keywords" content="server, ubuntu">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index, follow">
+	<meta charset="utf-8">
+</head>
+<body>
+<main>
+<header><h1 id="tag_Ubuntu Server Setup Part 1">Ubuntu Server Setup Part 1</h1></header>
+<article>
+
+<p>I was wanting to learn on how to setup my servers and host stuff on them, but to host a server online, one needs to spend some amount of money on them, which i really didn&rsquo;t want to. But then i remembered that i have one old dusty home computer that had been lying in my home since several years, while not really being used anymore.</p>
+<p>So i decided to use this opportunity to reuse the same computer for my server tasks and in this way, i will be saving up on those server costs that i would have to pay [electricity is cheap here].</p>
+<p>But i had a hurdle in my path, and that was my old monitor not working, due to which i was unable to get my cpu to give a basic display as it had only VGA output. And well, i couldn&rsquo;t really use this PC with my current monitor, as this monitor supports only HDMI and Display Port. I did have one VGA-to-HDMI converter lying around with me, but that had malfunctioned as well.</p>
+<p>This had me worried for some time before i thought of just using the gpu in my current setup on the older one. Sadly, this had another issue. The older desktop is an Intel Pentium E5400, and has a motherboard which is of LGA775 socket type. Now, this motherboard has the onboard power supply cables right above the PCIe slot, which rendered me placing my hefty gpu in that slot useless.</p>
+<p>Then i had to think a bit more and got an idea of just taking out the HDD from the old PC and placing it in my working desktop [silly me]. I attached the HDD to my newer PC and started the machine.</p>
+<p>At first, i went for the trusted server OS, Debian. Flashed it onto my usb drive and tried live booting only to be suprised with no display. Forgot that i had to enable CSM from BIOS and then turn on &ldquo;legacy only&rdquo; mode to allow the usb to boot [had partitioned it as MSDOS/MBR, silly me, again..]. This was again because the older computer had legacy BIOS only and i had to test the current HDD to ensure that it did boot alright under legacy conditions.</p>
+<p>Adjusted boot options and booted the PC only to be met by a weirdly enlarged debian graphical installer. Pressed enter and the PC restarted and i was met with just blurred out lines and teared display with the text not legible at all. Tried rebooting several times from my usb drive but was met with the same issue again and again. Finally got quite frustrated and flashed ubuntu server on the drive.</p>
+<p>Booted from it and to my surprise, it turned on smoothly. At first the screen was enlarged but when i progressed the installation, it auto-adjusted normally and matched my 24&quot; screen resolution quite well. Installed the ubuntu server, which was pretty straight forward, thanks to the KIS ways of Ubuntu.</p>
+<p>Then my next task was getting my wifi modem or should i say TP-Link USB Network Adapter (Archer T2U Plus) in working condition, as i planned to keep the pc in an isolated place. <strong>The instructions for the same can be found <a href="https://github.com/ObsidianMaximus/wifidrivers/blob/master/commands_for_drivers.txt">here</a>.</strong> This adapter uses a Realtek <strong>RTL8821AU Chipset</strong> at its heart, which fortunately has linux drivers available, thanks to aircrack-ng!
+Executing the commands in the script installed all it&rsquo;s drivers. Now next, i had to enable it and connect to my home network to make the pc accessible by my other devices.</p>
+<p>To do this, here is an excellent guide from <a href="https://ubuntu.com/core/docs/networkmanager/configure-wifi-connections">Ubuntu</a>!</p>
+<p>As for the steps i followed, they were as follow:</p>
+<ul>
+<li>Firstly, i had to install <strong>network-manager</strong> as it was not present by default on the default server installation [ strange? ].</li>
+<li>Next, i ran <strong><code>nmcli d</code></strong> command to get the name of the wifi device.</li>
+<li>Then, to turn it on, issue: <strong><code>nmcli r wifi on</code></strong> and list all the scanned wifi networks with: <strong><code>nmcli d wifi list</code></strong></li>
+<li>To connect to one of the networks listed, you have to type: <strong><code>nmcli d wifi connect &lt;name of the wifi&gt; password &lt;password for that wifi&gt;</code></strong>  [Replace stuff within &lt; &gt; with what you have got listed in the above step.]</li>
+<li>It took several seconds but after that it did get connected to my wifi network! I restarted my pc without the ethernet cable and the wifi did indeed work, although on startup, one of the checks done by systemd made me wait for quite a long time, more on that <a href="https://askubuntu.com/questions/972215/a-start-job-is-running-for-wait-for-network-to-be-configured-ubuntu-server-17-1">here</a>.</li>
+</ul>
+<p>I then took out the HDD and inserted it into my older desktop and sadly, even after it being turned on for several minutes, i had no green led light show up on the wifi usb adapter [which is used to indicate that the modem is in use by the OS], thus, the older pc was <em>not</em> turning on properly and i had no way to get to diagnosing the issue as i just didn&rsquo;t have a display [running it headless].</p>
+<p>I think that i will have to indeed get my monitor repaired to continue on with my experimentations on my newly built home server.</p>
+
+
+<div id="nextprev">
+<a href="/blog/use-ssh-or-rsync-with-android/"><div id="prevart">Previous:<br>Use SSH or Rsync With Android</div></a>
+</div>
+<div style="clear:both" class=taglist>Related<br><a id="tag_server" href="/tags/server">Server</a> &middot; <a id="tag_ubuntu" href="/tags/ubuntu">Ubuntu</a></div>
+</article>
+</main>
+
+<footer>
+	<a href=""></a><br><br><a href="/index.xml"><img src="/rss.svg" style="max-height:1.5em" alt="RSS Feed" title="Subscribe via RSS for updates."></a>
+</footer>
+
+</body>
+</html>
