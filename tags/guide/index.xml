@@ -156,5 +156,19 @@ boot_b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda41
 </description>
 	</item>
 	
+	<item>
+		<title>Donate</title>
+		<link>https://krishnayadav.xyz/donate/</link>
+		<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+		
+		<guid>https://krishnayadav.xyz/donate/</guid>
+		<description>&lt;p&gt;If you do like my work, you can donate me here:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://paypal.me/krishnayadavxyz&#34;&gt;PayPal&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Monero: 46Es9cwspxoY9hhYMy2mdGLwxpYouLWANaBVWiUhhjE37Mr1bB65cU4C9cLkCiaw3hWVaZij7xZs4DrPVUFxTPy5CCkVvsr&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+	</item>
+	
 	</channel>
 </rss>

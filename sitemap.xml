@@ -2,10 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://krishnayadav.xyz/blog/</loc>
-    <lastmod>2024-04-30T19:46:03+05:30</lastmod>
-  </url><url>
     <loc>https://krishnayadav.xyz/</loc>
+    <lastmod>2024-05-03T15:13:53+05:30</lastmod>
+  </url><url>
+    <loc>https://krishnayadav.xyz/blog/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
   </url><url>
     <loc>https://krishnayadav.xyz/tags/server/</loc>
@@ -48,5 +48,7 @@
     <lastmod>2024-04-24T21:53:31+05:30</lastmod>
   </url><url>
     <loc>https://krishnayadav.xyz/categories/</loc>
+  </url><url>
+    <loc>https://krishnayadav.xyz/donate/</loc>
   </url>
 </urlset>
