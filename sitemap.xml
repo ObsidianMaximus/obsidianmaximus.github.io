@@ -2,51 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/blog/</loc>
+    <loc>https://krishnayadav.xyz/blog/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
   </url><url>
-    <loc>/</loc>
+    <loc>https://krishnayadav.xyz/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
   </url><url>
-    <loc>/tags/server/</loc>
+    <loc>https://krishnayadav.xyz/tags/server/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>https://krishnayadav.xyz/tags/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
   </url><url>
-    <loc>/tags/ubuntu/</loc>
+    <loc>https://krishnayadav.xyz/tags/ubuntu/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
   </url><url>
-    <loc>/blog/ubuntu-server-setup-part-1/</loc>
+    <loc>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-1/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
   </url><url>
-    <loc>/tags/android/</loc>
+    <loc>https://krishnayadav.xyz/tags/android/</loc>
     <lastmod>2024-04-26T09:28:58+05:30</lastmod>
   </url><url>
-    <loc>/tags/guide/</loc>
+    <loc>https://krishnayadav.xyz/tags/guide/</loc>
     <lastmod>2024-04-26T09:28:58+05:30</lastmod>
   </url><url>
-    <loc>/tags/rsync/</loc>
+    <loc>https://krishnayadav.xyz/tags/rsync/</loc>
     <lastmod>2024-04-26T09:28:58+05:30</lastmod>
   </url><url>
-    <loc>/tags/ssh/</loc>
+    <loc>https://krishnayadav.xyz/tags/ssh/</loc>
     <lastmod>2024-04-26T09:28:58+05:30</lastmod>
   </url><url>
-    <loc>/blog/use-ssh-or-rsync-with-android/</loc>
+    <loc>https://krishnayadav.xyz/blog/use-ssh-or-rsync-with-android/</loc>
     <lastmod>2024-04-26T09:28:58+05:30</lastmod>
   </url><url>
-    <loc>/blog/ubuntutouchportpart1/</loc>
+    <loc>https://krishnayadav.xyz/blog/ubuntutouchportpart1/</loc>
     <lastmod>2024-04-25T13:38:00+05:30</lastmod>
   </url><url>
-    <loc>/tags/ut/</loc>
+    <loc>https://krishnayadav.xyz/tags/ut/</loc>
     <lastmod>2024-04-25T13:38:00+05:30</lastmod>
   </url><url>
-    <loc>/blog/bootimageextractionguide/</loc>
+    <loc>https://krishnayadav.xyz/blog/bootimageextractionguide/</loc>
     <lastmod>2024-04-24T21:53:31+05:30</lastmod>
   </url><url>
-    <loc>/tags/extraction/</loc>
+    <loc>https://krishnayadav.xyz/tags/extraction/</loc>
     <lastmod>2024-04-24T21:53:31+05:30</lastmod>
   </url><url>
-    <loc>/categories/</loc>
+    <loc>https://krishnayadav.xyz/categories/</loc>
   </url>
 </urlset>
