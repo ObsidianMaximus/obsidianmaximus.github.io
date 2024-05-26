@@ -57,6 +57,7 @@ mka target-files-package otatools
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now, it is time to sign all of our APKs and APEXes and build the .zip package. To do so, you need to execute some commands, which I have bundled in a script as they are too long to be inserted here. To execute the script, do as follows:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: When you run this script, it will ask you your password that you had set earlier. Expect to enter that several number of times here as well.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Sign.sh
 bash Sign.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
