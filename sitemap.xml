@@ -2,16 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://krishnayadav.xyz/tags/android/</loc>
+    <lastmod>2024-05-26T21:05:20+05:30</lastmod>
+  </url><url>
+    <loc>https://krishnayadav.xyz/blog/</loc>
+    <lastmod>2024-05-26T21:05:20+05:30</lastmod>
+  </url><url>
+    <loc>https://krishnayadav.xyz/tags/guide/</loc>
+    <lastmod>2024-05-26T21:05:20+05:30</lastmod>
+  </url><url>
+    <loc>https://krishnayadav.xyz/tags/rom/</loc>
+    <lastmod>2024-05-26T21:05:20+05:30</lastmod>
+  </url><url>
+    <loc>https://krishnayadav.xyz/blog/sign-a-custom-rom-build/</loc>
+    <lastmod>2024-05-26T21:05:20+05:30</lastmod>
+  </url><url>
+    <loc>https://krishnayadav.xyz/tags/</loc>
+    <lastmod>2024-05-26T21:05:20+05:30</lastmod>
+  </url><url>
     <loc>https://krishnayadav.xyz/</loc>
     <lastmod>2024-05-03T15:13:53+05:30</lastmod>
   </url><url>
-    <loc>https://krishnayadav.xyz/blog/</loc>
-    <lastmod>2024-04-30T19:46:03+05:30</lastmod>
-  </url><url>
     <loc>https://krishnayadav.xyz/tags/server/</loc>
-    <lastmod>2024-04-30T19:46:03+05:30</lastmod>
-  </url><url>
-    <loc>https://krishnayadav.xyz/tags/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
   </url><url>
     <loc>https://krishnayadav.xyz/tags/ubuntu/</loc>
@@ -19,12 +31,6 @@
   </url><url>
     <loc>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-1/</loc>
     <lastmod>2024-04-30T19:46:03+05:30</lastmod>
-  </url><url>
-    <loc>https://krishnayadav.xyz/tags/android/</loc>
-    <lastmod>2024-04-26T09:28:58+05:30</lastmod>
-  </url><url>
-    <loc>https://krishnayadav.xyz/tags/guide/</loc>
-    <lastmod>2024-04-26T09:28:58+05:30</lastmod>
   </url><url>
     <loc>https://krishnayadav.xyz/tags/rsync/</loc>
     <lastmod>2024-04-26T09:28:58+05:30</lastmod>
