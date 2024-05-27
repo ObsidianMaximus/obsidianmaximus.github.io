@@ -16,8 +16,8 @@
 		<pubDate>Sun, 26 May 2024 21:05:20 +0530</pubDate>
 		
 		<guid>https://krishnayadav.xyz/blog/sign-a-custom-rom-build/</guid>
-		<description>&lt;h3 id=&#34;this-guide-will-be-explain-on-how-to-sign-a-custom-rom-build-usually-unofficial-builds-as-most-official-roms-are-now-shipping-their-own-private-keys&#34;&gt;This guide will be explain on how to &lt;strong&gt;sign&lt;/strong&gt; a Custom ROM build (usually unofficial builds, as most official ROMs are now shipping their own private keys).&lt;/h3&gt;
-&lt;p&gt;I will be using the &lt;a href=&#34;https://wiki.lineageos.org/signing_builds&#34;&gt;Lineage wiki guide&lt;/a&gt;, but simplify it in my own words at places where I feel this guide did not give more practical information to a new comer like me.&lt;/p&gt;
+		<description>&lt;h3 id=&#34;this-guide-will-explain-how-to-sign-a-custom-rom-build-typically-unofficial-builds-as-most-official-roms-are-now-shipping-their-own-private-keys&#34;&gt;This guide will explain how to &lt;strong&gt;sign&lt;/strong&gt; a Custom ROM build (typically unofficial builds, as most official ROMs are now shipping their own private keys).&lt;/h3&gt;
+&lt;p&gt;I will use the &lt;a href=&#34;https://wiki.lineageos.org/signing_builds&#34;&gt;Lineage wiki guide&lt;/a&gt;, but simplify it in my own words at places where I feel this guide did not give more practical information to a new comer like me.&lt;/p&gt;
 &lt;p&gt;The steps to &lt;strong&gt;Generate the keys&lt;/strong&gt; are as follows:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: You only need to run this once. If you ever rerun these, you’ll need to migrate between builds.&lt;/p&gt;
 &lt;ol&gt;
