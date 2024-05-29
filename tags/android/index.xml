@@ -1,21 +1,123 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-	<title>My website.</title>
-	<link>/tags/android/</link>
-	<description>Recent content in android on My website.</description>
+	<title>Krishna&#39;s Webplace</title>
+	<link>https://krishnayadav.xyz/tags/android/</link>
+	<description>Recent content in android on Krishna&#39;s Webplace</description>
 	<generator>Hugo -- gohugo.io</generator>
 	<language>en-us</language>
-	<lastBuildDate>Fri, 26 Apr 2024 09:28:58 +0530</lastBuildDate>
+	<lastBuildDate>Wed, 29 May 2024 20:43:23 +0530</lastBuildDate>
     
-        <atom:link href="/tags/android/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://krishnayadav.xyz/tags/android/index.xml" rel="self" type="application/rss+xml" />
 	
 	
 	<item>
+		<title>Whatsapp Without Phone</title>
+		<link>https://krishnayadav.xyz/blog/whatsapp-without-phone/</link>
+		<pubDate>Wed, 29 May 2024 20:43:23 +0530</pubDate>
+		
+		<guid>https://krishnayadav.xyz/blog/whatsapp-without-phone/</guid>
+		<description>&lt;h3 id=&#34;yes-whatsapp-without-its-app-on-phone-you-read-it-right&#34;&gt;Yes, whatsapp without it&amp;rsquo;s app on phone, you read it right.&lt;/h3&gt;
+&lt;p&gt;I had stopped using whatsapp because I didn&amp;rsquo;t want to have it&amp;rsquo;s &amp;ldquo;proprietary&amp;rdquo; app on my degoogled device.&lt;/p&gt;
+&lt;p&gt;But you see, this application is used by most of my academic professors and other colleages, so I had to somehow use it (without the app on my phone, of course).&lt;/p&gt;
+&lt;p&gt;So I thought of running it through some android emulator, but didn&amp;rsquo;t want to natively run it on my linux machine.&lt;/p&gt;
+&lt;p&gt;Thus I installed Windows 10 through virtual box and then installed bluestacks in it. But bluestacks was not starting properly (issues with virtualization).&lt;/p&gt;
+&lt;p&gt;Had to &lt;strong&gt;enable&lt;/strong&gt; the following 2 options to get virtualization working:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/enable_virt.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;If this still doesn&amp;rsquo;t work for you, I think you should also enable Virtualization and Hyper-V support from &amp;ldquo;Turn on windows features&amp;rdquo; from within your Windows VM.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;After this, bluestacks started working normally and I installed whatsapp normally in it and logged in to my account &lt;em&gt;[A strange thing was that all my chats and groups were gone, but maybe that was because I was logging in after around 1 month].&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;My next major work was to get whatsapp web working, so that I could use it on my other devices (of course, not going to run the emulator each time I have to use it).&lt;/p&gt;
+&lt;p&gt;To do so, whatsapp requires web versions to have their QR code scanned by the whatsapp application for login, thus I used a usb camera that I had with me, but I got this error when I tried to use the webcam in my Windows VM:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/cam_notFound_big.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;It required a bit of work to implement a &amp;ldquo;Webcam Passthrough&amp;rdquo;, so that the VM instance could access the USB camera.&lt;/p&gt;
+&lt;p&gt;The steps were as follows [&lt;a href=&#34;https://askubuntu.com/a/1237808&#34;&gt;Credits&lt;/a&gt;]:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;First install certain extra packages to get stuff working:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install virtualbox-guest-additions-iso virtualbox-ext-pack
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Next, we need to find our webcam details using this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;VBoxManage list webcams
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This should show us a list of (for me only 1) webcam/s attached to your host device.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now finally we need to connect this webcam to enable passthrough. Issue this command, by replacing the word &lt;strong&gt;Windows&lt;/strong&gt; with the name of your VM instance and the .1 with the number that corresponds to your webcam as listed in step 2 (in most cases, it should be .1):&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;NOTE: This command must be run only when your windows VM is running.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;VBoxManage controlvm &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt; webcam attach .1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/list_Webcam.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;NOTE: If you shutdown or restart your VM, it will loose access to the camera. You need to re-run the step 3 command to get it working.&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;With this much, my VM was able to detect the webcam and without much difficulty, I was able to register with the whatsapp web version on my devices.&lt;/p&gt;
+&lt;p&gt;A small caveat though, remember to open the whatsapp in your windows VM every 14 days to avoid getting logged out of your whatsapp web devices.&lt;/p&gt;
+</description>
+	</item>
+	
+	<item>
+		<title>Sign a Custom ROM Build</title>
+		<link>https://krishnayadav.xyz/blog/sign-a-custom-rom-build/</link>
+		<pubDate>Sun, 26 May 2024 21:05:20 +0530</pubDate>
+		
+		<guid>https://krishnayadav.xyz/blog/sign-a-custom-rom-build/</guid>
+		<description>&lt;h3 id=&#34;this-guide-will-explain-how-to-sign-a-custom-rom-build-typically-unofficial-builds-as-most-official-roms-are-now-shipping-their-own-private-keys&#34;&gt;This guide will explain how to &lt;strong&gt;sign&lt;/strong&gt; a Custom ROM build (typically unofficial builds, as most official ROMs are now shipping their own private keys).&lt;/h3&gt;
+&lt;p&gt;I will use the &lt;a href=&#34;https://wiki.lineageos.org/signing_builds&#34;&gt;Lineage wiki guide&lt;/a&gt;, but simplify it in my own words at places where I feel this guide did not give more practical information to a new comer like me.&lt;/p&gt;
+&lt;p&gt;The steps to &lt;strong&gt;Generate the keys&lt;/strong&gt; are as follows:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: You only need to run this once. If you ever rerun these, you’ll need to migrate between builds.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Go to the directory where all yours rom files are originally synced (the root of your custom rom files). Now open a terminal and issue this command:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Please note this beforehand that running the following code will ask you to enter password for several keys and several number of times. I will say that just enter 1 password and copy+paste it on all the places where it asks for a password to be entered.&lt;/p&gt;
+&lt;h4 id=&#34;_do-note-this-password-down-as-we-will-have-to-use-it-when-we-sign-the-builds_&#34;&gt;&lt;em&gt;DO NOTE THIS PASSWORD DOWN, as we will have to use it when we sign the builds.&lt;/em&gt;&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;subject&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com&amp;#39;&lt;/span&gt;
+mkdir ~/.android-certs
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; cert in bluetooth cyngn-app media networkstack platform releasekey sdk_sandbox shared testcert testkey verity; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;    ./development/tools/make_key ~/.android-certs/$cert &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$subject&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now we need are required to re-sign APEX keys. To do so, simply run the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp ./development/tools/make_key ~/.android-certs/
+sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;s|2048|4096|g&amp;#39;&lt;/span&gt; ~/.android-certs/make_key
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now finally, we must generate our keys. I will strongly recommend you to generate them &lt;strong&gt;with&lt;/strong&gt; a password (re-use the password you used in step 1).&lt;/p&gt;
+&lt;p&gt;The command to run is in &lt;a href=&#34;https://wiki.lineageos.org/signing_builds#generate-keys-with-a-password&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: If you have issues following up with these steps, I have a script that will execute the commands for you (of course, you have to manually enter the password for each keys). You can find that script &lt;a href=&#34;https://github.com/ObsidianMaximus/scripts/blob/master/signing/Generate_Keys.sh&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Usage (copy paste this in terminal):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Generate_Keys.sh
+bash Generate_Keys.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now, the steps to &lt;strong&gt;make a .zip flashable package&lt;/strong&gt; are as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Source the envsetup.sh by executing this command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;source build/envsetup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now finally, we will have to start compiling the files for our custom ROM (this will take a long time, depending on your computer&amp;rsquo;s specs). To do so, run the following command (replacing the codename with your device codename):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;breakfast &amp;lt;codename&amp;gt;
+mka target-files-package otatools
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, it is time to sign all of our APKs and APEXes and build the .zip package. To do so, you need to execute some commands, which I have bundled in a script as they are too long to be inserted here. To execute the script, do as follows:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: When you run this script, it will ask you your password that you had set earlier. Expect to enter that several number of times here as well.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Sign.sh
+bash Sign.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Congratulations, you have successfully signed the build. Now in case you are wondering where the .zip file is (no, it is not in the usual out directory), the .zip is right in the android root tree, where you issued the commands from.&lt;/p&gt;
+&lt;p&gt;Just clean flash the &lt;strong&gt;signed-ota_update.zip&lt;/strong&gt; and device integrity should be met now.&lt;/p&gt;
+</description>
+	</item>
+	
+	<item>
 		<title>Ubuntu Server Setup Part 1</title>
-		<link>/blog/ubuntu-server-setup-part-1/</link>
+		<link>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-1/</link>
 		<pubDate>Tue, 30 Apr 2024 19:46:03 +0530</pubDate>
 		
-		<guid>/blog/ubuntu-server-setup-part-1/</guid>
+		<guid>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-1/</guid>
 		<description>&lt;p&gt;I was wanting to learn on how to setup my servers and host stuff on them, but to host a server online, one needs to spend some amount of money on them, which i really didn&amp;rsquo;t want to. But then i remembered that i have one old dusty home computer that had been lying in my home since several years, while not really being used anymore.&lt;/p&gt;
 &lt;p&gt;So i decided to use this opportunity to reuse the same computer for my server tasks and in this way, i will be saving up on those server costs that i would have to pay [electricity is cheap here].&lt;/p&gt;
 &lt;p&gt;But i had a hurdle in my path, and that was my old monitor not working, due to which i was unable to get my cpu to give a basic display as it had only VGA output. And well, i couldn&amp;rsquo;t really use this PC with my current monitor, as this monitor supports only HDMI and Display Port. I did have one VGA-to-HDMI converter lying around with me, but that had malfunctioned as well.&lt;/p&gt;
@@ -24,7 +126,7 @@
 &lt;p&gt;At first, i went for the trusted server OS, Debian. Flashed it onto my usb drive and tried live booting only to be suprised with no display. Forgot that i had to enable CSM from BIOS and then turn on &amp;ldquo;legacy only&amp;rdquo; mode to allow the usb to boot [had partitioned it as MSDOS/MBR, silly me, again..]. This was again because the older computer had legacy BIOS only and i had to test the current HDD to ensure that it did boot alright under legacy conditions.&lt;/p&gt;
 &lt;p&gt;Adjusted boot options and booted the PC only to be met by a weirdly enlarged debian graphical installer. Pressed enter and the PC restarted and i was met with just blurred out lines and teared display with the text not legible at all. Tried rebooting several times from my usb drive but was met with the same issue again and again. Finally got quite frustrated and flashed ubuntu server on the drive.&lt;/p&gt;
 &lt;p&gt;Booted from it and to my surprise, it turned on smoothly. At first the screen was enlarged but when i progressed the installation, it auto-adjusted normally and matched my 24&amp;quot; screen resolution quite well. Installed the ubuntu server, which was pretty straight forward, thanks to the KIS ways of Ubuntu.&lt;/p&gt;
-&lt;p&gt;Then my next task was getting my wifi modem or should i say TP-Link USB Network Adapter (Archer T2U Plus) in working condition, as i planned to keep the pc in an isolated place. &lt;strong&gt;The instructions for the same can be found &lt;a href=&#34;https://github.com/ObsidianMaximus/wifidrivers/blob/master/commands_for_drivers.txt&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt; This adapter uses a Realtek &lt;strong&gt;RTL8821AU Chipset&lt;/strong&gt; at its heart, which fortunately has linux drivers available, thanks to aircrack-ng!
+&lt;p&gt;Then my next task was getting my wifi modem or should i say TP-Link USB Network Adapter (Archer T2U Plus) in working condition, as i planned to keep the pc in an isolated place. &lt;strong&gt;The instructions for the same can be found &lt;a href=&#34;https://github.com/ObsidianMaximus/wifidrivers/blob/master/commands_for_drivers.sh&#34;&gt;here&lt;/a&gt;.&lt;/strong&gt; This adapter uses a Realtek &lt;strong&gt;RTL8821AU Chipset&lt;/strong&gt; at its heart, which fortunately has linux drivers available, thanks to aircrack-ng!
 Executing the commands in the script installed all it&amp;rsquo;s drivers. Now next, i had to enable it and connect to my home network to make the pc accessible by my other devices.&lt;/p&gt;
 &lt;p&gt;To do this, here is an excellent guide from &lt;a href=&#34;https://ubuntu.com/core/docs/networkmanager/configure-wifi-connections&#34;&gt;Ubuntu&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;As for the steps i followed, they were as follow:&lt;/p&gt;
@@ -42,10 +144,10 @@ Executing the commands in the script installed all it&amp;rsquo;s drivers. Now n
 	
 	<item>
 		<title>Use SSH or Rsync With Android</title>
-		<link>/blog/use-ssh-or-rsync-with-android/</link>
+		<link>https://krishnayadav.xyz/blog/use-ssh-or-rsync-with-android/</link>
 		<pubDate>Fri, 26 Apr 2024 09:28:58 +0530</pubDate>
 		
-		<guid>/blog/use-ssh-or-rsync-with-android/</guid>
+		<guid>https://krishnayadav.xyz/blog/use-ssh-or-rsync-with-android/</guid>
 		<description>&lt;p&gt;Today, i wanted to send a file from my desktop to my android device. I thought of using rsync for this purpose, which is a tool that i use frequently to sync files between my desktop and my laptop.&lt;/p&gt;
 &lt;p&gt;I thought of giving it a try and came across &lt;a href=&#34;https://howtos.davidsebek.com/android-rsync-termux.html&#34;&gt;this great article&lt;/a&gt; that explained just this.&lt;/p&gt;
 &lt;h3 id=&#34;note-this-guide-requires-both-the-computer-and-the-android-device-to-be-on-the-same-wifi-network&#34;&gt;NOTE: This guide requires both the computer and the Android device to be on the same wifi network.&lt;/h3&gt;
@@ -91,10 +193,10 @@ Executing the commands in the script installed all it&amp;rsquo;s drivers. Now n
 	
 	<item>
 		<title>Ubuntu Touch Port Part 1</title>
-		<link>/blog/ubuntutouchportpart1/</link>
+		<link>https://krishnayadav.xyz/blog/ubuntutouchportpart1/</link>
 		<pubDate>Thu, 25 Apr 2024 13:38:00 +0530</pubDate>
 		
-		<guid>/blog/ubuntutouchportpart1/</guid>
+		<guid>https://krishnayadav.xyz/blog/ubuntutouchportpart1/</guid>
 		<description>&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h1&gt;
 &lt;p&gt;So I recently decided to get more involved in the Android world and came about a &amp;lsquo;new&amp;rsquo; type of OS, known as Ubuntu Touch. I thought a bit on it and decided to start the porting process for it for my device Realme GT Neo 2 [codenamed:bitra].&lt;/p&gt;
 &lt;p&gt;I started with the &lt;a href=&#34;https://docs.ubports.com/en/latest/porting/introduction/index.html&#34;&gt;official documentation of UBports&lt;/a&gt; where in they gave some good amount of introduction on how and why certain things needed to be done.&lt;/p&gt;
@@ -102,26 +204,26 @@ Executing the commands in the script installed all it&amp;rsquo;s drivers. Now n
 &lt;p&gt;&lt;a href=&#34;https://docs.ubports.com/en/latest/porting/build_and_boot/standalone_kernel_build.html&#34;&gt;Standalone Kernel Method (Halium 9 and newer)&lt;/a&gt; is very interesting as it seems to be the least tiresome way for porting among all of the 3 mentioned methods. So I started with this and did the steps as mentioned in the guide.&lt;/p&gt;
 &lt;p&gt;The defconfig that i had to use is the &lt;a href=&#34;https://gitlab.com/Krishna-Yadav/android_kernel_realme_sm8250/-/blob/master/arch/arm64/configs/vendor/sm8250_defconfig?ref_type=heads&#34;&gt;sm8250_defconfig&lt;/a&gt;. Next i made a halium.config file as prompted.&lt;/p&gt;
 &lt;p&gt;Next, i had to fill in the deviceinfo file. For this purpose, I used the &lt;a href=&#34;https://gitlab.com/ubports/porting/community-ports/android11/xiaomi-poco-x3-pro/xiaomi-vayu&#34;&gt;Poco X3 Pro device branch&lt;/a&gt; as a dummy template and started filling stuff according to it and the guide.&lt;/p&gt;
-&lt;p&gt;But I got stuck on the &lt;em&gt;deviceinfo_bootimg_prebuilt_dtb&lt;/em&gt; step as i was not sure where to find my dtb. So i asked this question in the telegram group of Ubports and was recommended to run a script on the &lt;a href=&#34;/bootimageextractionguide/index.html&#34;&gt;boot.img which i had extracted&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;But I got stuck on the &lt;em&gt;deviceinfo_bootimg_prebuilt_dtb&lt;/em&gt; step as i was not sure where to find my dtb. So i asked this question in the telegram group of Ubports and was recommended to run a script on the &lt;a href=&#34;https://krishnayadav.xyz/bootimageextractionguide/index.html&#34;&gt;boot.img which i had extracted&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The script was by LOS. It can be found &lt;a href=&#34;https://raw.githubusercontent.com/LineageOS/android_system_tools_mkbootimg/lineage-18.1/unpack_bootimg.py&#34;&gt;here&lt;/a&gt; [use it through curl -O options]. And it worked! I was able to get the output from my boot.img using the script by running this command : &lt;strong&gt;&lt;code&gt;python unpack_bootimg.py --boot_img boot.img&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;the-scripts-output-in-normal-format&#34;&gt;&lt;strong&gt;The script&amp;rsquo;s output in normal format.&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;/img/pyScriptLOS18.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/pyScriptLOS18.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;But then, i was recommended to add the option &lt;strong&gt;&lt;code&gt;--format mkbootimg&lt;/code&gt;&lt;/strong&gt; along with the above command to get the outputed text in terms of mkbootimg arguments, as it would output the values that were expected for the &lt;strong&gt;deviceinfo&lt;/strong&gt; file.&lt;/p&gt;
 &lt;p&gt;Unfortunately for me though, adding that option to the command gave me an error : &lt;strong&gt;&lt;code&gt;error: unrecognized arguments: --format mkbootimg&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;I then thought and checked the latest LOS branch from where i had got that previous script. And i did find an updated script from LOS21 that did have those options that i needed for mkbootimg format. The new script can be found &lt;a href=&#34;https://raw.githubusercontent.com/LineageOS/android_system_tools_mkbootimg/lineage-21.0/unpack_bootimg.py&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;After this, i ran the command again, now with the additional parameters to it and was indeed able to generate the output in mkbootimg format without any errors! The updated command : &lt;strong&gt;&lt;code&gt;python unpack_bootimg.py --boot_img boot.img --format mkbootimg&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;the-scripts-output-in-mkbootimg-format&#34;&gt;&lt;strong&gt;The script&amp;rsquo;s output in mkbootimg format.&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;/img/pyScriptLOS21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/pyScriptLOS21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;This has given me alot to work with now. I will be looking forward to progress even further and complete the deviceinfo file.&lt;/p&gt;
 </description>
 	</item>
 	
 	<item>
 		<title>Boot Image Extraction Guide</title>
-		<link>/blog/bootimageextractionguide/</link>
+		<link>https://krishnayadav.xyz/blog/bootimageextractionguide/</link>
 		<pubDate>Wed, 24 Apr 2024 21:53:31 +0530</pubDate>
 		
-		<guid>/blog/bootimageextractionguide/</guid>
+		<guid>https://krishnayadav.xyz/blog/bootimageextractionguide/</guid>
 		<description>&lt;p&gt;Guide on how to extract a boot image from any Android phone [Requires Magisk and Computer]&lt;/p&gt;
 &lt;h2 id=&#34;getting-started&#34;&gt;Getting started!&lt;/h2&gt;
 &lt;p&gt;Accessing and modifying system files on your device typically requires superuser permissions. To extract the boot image, we&amp;rsquo;ll need a root environment. We&amp;rsquo;ll achieve this by using Magisk.&lt;/p&gt;
@@ -153,6 +255,31 @@ boot_b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda41
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/dev/block/mmcblk0p42 of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/sdcard/boot_a.img
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I hope this did work for you, as it did indeed work for me!&lt;/p&gt;
 &lt;p&gt;CREDITS : &lt;a href=&#34;https://gist.github.com/gitclone-url/a1f693b64d8f8701ec24477a2ccaab87&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;
+</description>
+	</item>
+	
+	<item>
+		<title>Donate</title>
+		<link>https://krishnayadav.xyz/donate/</link>
+		<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+		
+		<guid>https://krishnayadav.xyz/donate/</guid>
+		<description>&lt;p&gt;If you do like my work, you can donate me here:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://paypal.me/krishnayadavxyz&#34;&gt;PayPal&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Monero: 46Es9cwspxoY9hhYMy2mdGLwxpYouLWANaBVWiUhhjE37Mr1bB65cU4C9cLkCiaw3hWVaZij7xZs4DrPVUFxTPy5CCkVvsr&lt;/p&gt;
+&lt;p&gt;Monero QR:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/Monero.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;UPI: obsidianmaximus@paytm&lt;/p&gt;
+&lt;p&gt;QR code for UPI:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/paytm.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
 	</item>
 	
