@@ -101,14 +101,23 @@ bash Generate_Keys.sh
 mka target-files-package otatools
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Now, it is time to sign all of our APKs and APEXes and build the .zip package. To do so, you need to execute some commands, which I have bundled in a script as they are too long to be inserted here. To execute the script, do as follows:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: When you run this script, it will ask you your password that you had set earlier. Expect to enter that several number of times here as well.&lt;/p&gt;
+&lt;p&gt;Now, it is time to sign all of our APKs and APEXes and build the .zip package.&lt;/p&gt;
+&lt;p&gt;We will use 2 environment variables to ease our task, as they will allow us to sign without having to enter the password several times. For that, we must issue these 2 commands in the terminal:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;export ANDROID_PW_FILE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/path/to/your/password/file
+export EDITOR&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;your_preferred_text_editor
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: &lt;em&gt;Replace the fields above as required. For the &lt;strong&gt;ANDROID_PW_FILE&lt;/strong&gt;, just create a file somewhere and input its path there. As for the &lt;strong&gt;EDITOR&lt;/strong&gt; variable, choose whichever editor you like (eg. vim, nano, codium, etc).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Next run the following commands to call the script to start signing:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Sign.sh
 bash Sign.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: &lt;em&gt;This script will invoke a command &amp;ldquo;&lt;strong&gt;sign_target_files_apks&lt;/strong&gt;&amp;rdquo;, which should open the editor which you specified above, but if it does not, then open the file that you had given above in &lt;strong&gt;&amp;ldquo;ANDROID_PW_FILE&amp;rdquo;&lt;/strong&gt; and you should have stuff inside of it with empty spaces in these &amp;ldquo;[[[      ]]]&amp;rdquo; brackets.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Fill the password in this empty space for all the apks [make sure to fill it between the 3 left and 3 right brackets], and then save this file, and re-run the above script by simple doing: &lt;strong&gt;&lt;code&gt;bash Sign.sh&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Wait patiently, it can take some time to do all of the above process.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Congratulations, you have successfully signed the build. Now in case you are wondering where the .zip file is (no, it is not in the usual out directory), the .zip is right in the android root tree, where you issued the commands from.&lt;/p&gt;
+&lt;p&gt;Congratulations, you have successfully signed the build. Now in case you are wondering where the .zip file is (no, it is not in the usual out/ directory), the .zip is right in the android root tree, where you issued the commands from.&lt;/p&gt;
 &lt;p&gt;Just clean flash the &lt;strong&gt;signed-ota_update.zip&lt;/strong&gt; and device integrity should be met now.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;em&gt;Just confirmed that dirty flashing this build over the previous unsigned ROM also works!&lt;/em&gt;&lt;/p&gt;
 </description>
 	</item>
 	
