@@ -2,10 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://krishnayadav.xyz/tags/android/</loc>
-    <lastmod>2024-05-29T20:43:23+05:30</lastmod>
-  </url><url>
     <loc>https://krishnayadav.xyz/blog/</loc>
+    <lastmod>2024-06-22T20:35:26+05:30</lastmod>
+  </url><url>
+    <loc>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-2-installing-nextcloud/</loc>
+    <lastmod>2024-06-22T20:35:26+05:30</lastmod>
+  </url><url>
+    <loc>https://krishnayadav.xyz/tags/android/</loc>
     <lastmod>2024-05-29T20:43:23+05:30</lastmod>
   </url><url>
     <loc>https://krishnayadav.xyz/tags/guide/</loc>

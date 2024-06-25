@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ubuntu Server Setup Part 2: Installing Nextcloud | Krishna&#39;s Webplace</title>
+	<link rel="canonical" href="https://krishnayadav.xyz/">
+	<link rel='alternate' type='application/rss+xml' title="Krishna&#39;s Webplace RSS" href='/index.xml'>
+	<link rel='stylesheet' type='text/css' href='/style.css'>
+	<link rel="icon" href="/favicon.jpg">
+	<meta name="description" content="I finally setup my Ubuntu server quite well along with wifi drivers.
+Next up, I had to install Nextcloud, because I wanted a cloud storage that could backup and sync photos, videos and other stuff from several devices at my home. Thus I looked up a tutorial on it and found one by Jay, which was extremely easy to follow and helped me setup my Nextcloud instance from scratch.
+The steps to do the same are as follows:">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index, follow">
+	<meta charset="utf-8">
+</head>
+<body>
+<main>
+<header><h1 id="tag_Ubuntu Server Setup Part 2: Installing Nextcloud">Ubuntu Server Setup Part 2: Installing Nextcloud</h1></header>
+<article>
+
+<p>I finally setup my Ubuntu server quite well along with wifi drivers.</p>
+<p>Next up, I had to install Nextcloud, because I wanted a cloud storage that could backup and sync photos, videos and other stuff from several devices at my home. Thus I looked up a tutorial on it and found one by Jay, which was extremely easy to follow and helped me setup my Nextcloud instance from scratch.</p>
+<p>The steps to do the same are as follows:</p>
+<ol>
+<li>
+<p>You should be using a normal user account, and should not be executing the commands as &lsquo;root&rsquo;. In case you are &lsquo;root&rsquo;, simply execute the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>adduser &lt;Enter your desired username here&gt;
+</span></span><span style="display:flex;"><span>usermod -aG sudo &lt;Enter the username you set above&gt;
+</span></span></code></pre></div></li>
+<li>
+<p>Update the system&rsquo;s cache and also any pending updates with the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo apt update &amp;&amp; sudo apt dist-upgrade
+</span></span></code></pre></div></li>
+<li>
+<p>Now, let us download and install php, mariadb and apache (along with some additional dependencies and required packages):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo apt install libmagickcore-6.q16-6-extra php php-apcu php-bcmath php-cli php-common php-curl
+</span></span><span style="display:flex;"><span>php-gd php-gmp php-imagick php-intl php-mbstring php-mysql php-zip php-xml apache2 unzip 
+</span></span><span style="display:flex;"><span>mariadb-server redis-server php-redis -y
+</span></span></code></pre></div><p><em>Note:</em> You can check if apache is running [Should be active and enabled] with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>systemctl status apache2
+</span></span></code></pre></div></li>
+<li>
+<p>Download and unzip nextcloud with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>wget https://download.nextcloud.com/server/releases/latest.zip
+</span></span><span style="display:flex;"><span>unzip latest.zip
+</span></span></code></pre></div><p>We will now change the ownership of nextcloud to the group and user &lsquo;www-data&rsquo; and move the nextcloud folder into the &lsquo;/var/www/&rsquo; directory as SOP. The &lsquo;www-data&rsquo; is a user (and group) created by default when we installed apache2. The <strong>-R</strong> flag changes ownership of all files and folders within the nextcloud directory recursively.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo chown www-data:www-data -R nextcloud
+</span></span><span style="display:flex;"><span>sudo mv nextcloud /var/www/
+</span></span></code></pre></div></li>
+<li>
+<p>PHP needs some modules to be enabled for it&rsquo;s functioning. Do so with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo phpenmod imagick intl bcmath gmp  
+</span></span></code></pre></div></li>
+<li>
+<p>Let us start configuring database, which is required to base our Nextcloud on. We must first run a setup of mysql to secure our installation. To do so, run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo mysql_secure_installation
+</span></span></code></pre></div><p>It will open a console asking you to fill certain details.</p>
+<ul>
+<li>The first prompt will be asking for default root password, just press Enter button to skip this option.</li>
+<li>Next it will ask for Unix socket, <strong>type &rsquo;n&rsquo;</strong> and proceed.</li>
+<li>Then it will ask to enter a password, <strong>type &lsquo;y&rsquo;</strong> and then enter a password (store it securely).</li>
+<li>Just keep pressing Enter button to skip through rest of the options (Capital letter means default option, <strong>&lsquo;Y&rsquo;</strong> in all these options).</li>
+</ul>
+</li>
+<li>
+<p>Once done with this, we must now configure mariadb. Open it&rsquo;s shell by:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo mariadb
+</span></span></code></pre></div><p>In this shell, type these commands (replace where marked):</p>
+<ul>
+<li>CREATE DATABASE nextcloud;</li>
+<li>GRANT ALL PRIVILEGES ON nextcloud.* TO &rsquo;nextcloud&rsquo;@&rsquo;localhost&rsquo; IDENTIFIED BY &lt;&lsquo;Enter a secure password here for the db. Do keep the password inside single inverted commas.&rsquo;&gt;;</li>
+<li>FLUSH PRIVILEGES;</li>
+<li>exit;</li>
+</ul>
+<p><strong>NOTE:</strong> Store this password very securely, as it can be misused if leaked.</p>
+</li>
+<li></li>
+</ol>
+
+
+<div id="nextprev">
+<a href="/blog/whatsapp-without-phone/"><div id="prevart">Previous:<br>Whatsapp Without Phone</div></a>
+</div>
+
+</article>
+</main>
+
+<footer>
+	<a href="https://krishnayadav.xyz/">https://krishnayadav.xyz/</a><br><br><a href="/index.xml"><img src="/rss.svg" style="max-height:1.5em" alt="RSS Feed" title="Subscribe via RSS for updates."></a>
+</footer>
+
+</body>
+</html>

@@ -10,6 +10,73 @@
 	
 	
 	<item>
+		<title>Ubuntu Server Setup Part 2: Installing Nextcloud</title>
+		<link>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-2-installing-nextcloud/</link>
+		<pubDate>Sat, 22 Jun 2024 20:35:26 +0530</pubDate>
+		
+		<guid>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-2-installing-nextcloud/</guid>
+		<description>&lt;p&gt;I finally setup my Ubuntu server quite well along with wifi drivers.&lt;/p&gt;
+&lt;p&gt;Next up, I had to install Nextcloud, because I wanted a cloud storage that could backup and sync photos, videos and other stuff from several devices at my home. Thus I looked up a tutorial on it and found one by Jay, which was extremely easy to follow and helped me setup my Nextcloud instance from scratch.&lt;/p&gt;
+&lt;p&gt;The steps to do the same are as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;You should be using a normal user account, and should not be executing the commands as &amp;lsquo;root&amp;rsquo;. In case you are &amp;lsquo;root&amp;rsquo;, simply execute the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adduser &amp;lt;Enter your desired username here&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;usermod -aG sudo &amp;lt;Enter the username you set above&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Update the system&amp;rsquo;s cache and also any pending updates with the following command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update &amp;amp;&amp;amp; sudo apt dist-upgrade
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, let us download and install php, mariadb and apache (along with some additional dependencies and required packages):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install libmagickcore-6.q16-6-extra php php-apcu php-bcmath php-cli php-common php-curl
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;php-gd php-gmp php-imagick php-intl php-mbstring php-mysql php-zip php-xml apache2 unzip 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mariadb-server redis-server php-redis -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; You can check if apache is running [Should be active and enabled] with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;systemctl status apache2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Download and unzip nextcloud with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wget https://download.nextcloud.com/server/releases/latest.zip
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;unzip latest.zip
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will now change the ownership of nextcloud to the group and user &amp;lsquo;www-data&amp;rsquo; and move the nextcloud folder into the &amp;lsquo;/var/www/&amp;rsquo; directory as SOP. The &amp;lsquo;www-data&amp;rsquo; is a user (and group) created by default when we installed apache2. The &lt;strong&gt;-R&lt;/strong&gt; flag changes ownership of all files and folders within the nextcloud directory recursively.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo chown www-data:www-data -R nextcloud
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mv nextcloud /var/www/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PHP needs some modules to be enabled for it&amp;rsquo;s functioning. Do so with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo phpenmod imagick intl bcmath gmp  
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Let us start configuring database, which is required to base our Nextcloud on. We must first run a setup of mysql to secure our installation. To do so, run:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mysql_secure_installation
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It will open a console asking you to fill certain details.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The first prompt will be asking for default root password, just press Enter button to skip this option.&lt;/li&gt;
+&lt;li&gt;Next it will ask for Unix socket, &lt;strong&gt;type &amp;rsquo;n&amp;rsquo;&lt;/strong&gt; and proceed.&lt;/li&gt;
+&lt;li&gt;Then it will ask to enter a password, &lt;strong&gt;type &amp;lsquo;y&amp;rsquo;&lt;/strong&gt; and then enter a password (store it securely).&lt;/li&gt;
+&lt;li&gt;Just keep pressing Enter button to skip through rest of the options (Capital letter means default option, &lt;strong&gt;&amp;lsquo;Y&amp;rsquo;&lt;/strong&gt; in all these options).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once done with this, we must now configure mariadb. Open it&amp;rsquo;s shell by:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mariadb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this shell, type these commands (replace where marked):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CREATE DATABASE nextcloud;&lt;/li&gt;
+&lt;li&gt;GRANT ALL PRIVILEGES ON nextcloud.* TO &amp;rsquo;nextcloud&amp;rsquo;@&amp;rsquo;localhost&amp;rsquo; IDENTIFIED BY &amp;lt;&amp;lsquo;Enter a secure password here for the db. Do keep the password inside single inverted commas.&amp;rsquo;&amp;gt;;&lt;/li&gt;
+&lt;li&gt;FLUSH PRIVILEGES;&lt;/li&gt;
+&lt;li&gt;exit;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; Store this password very securely, as it can be misused if leaked.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+	</item>
+	
+	<item>
 		<title>Whatsapp Without Phone</title>
 		<link>https://krishnayadav.xyz/blog/whatsapp-without-phone/</link>
 		<pubDate>Wed, 29 May 2024 20:43:23 +0530</pubDate>
@@ -32,18 +99,18 @@
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;First install certain extra packages to get stuff working:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install virtualbox-guest-additions-iso virtualbox-ext-pack
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get install virtualbox-guest-additions-iso virtualbox-ext-pack
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Next, we need to find our webcam details using this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;VBoxManage list webcams
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This should show us a list of (for me only 1) webcam/s attached to your host device.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;VBoxManage list webcams
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This should show us a list of (for me only 1) webcam/s attached to your host device.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now finally we need to connect this webcam to enable passthrough. Issue this command, by replacing the word &lt;strong&gt;Windows&lt;/strong&gt; with the name of your VM instance and the .1 with the number that corresponds to your webcam as listed in step 2 (in most cases, it should be .1):&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;NOTE: This command must be run only when your windows VM is running.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;VBoxManage controlvm &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt; webcam attach .1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;VBoxManage controlvm &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt; webcam attach .1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/list_Webcam.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;NOTE: If you shutdown or restart your VM, it will loose access to the camera. You need to re-run the step 3 command to get it working.&lt;/em&gt;&lt;/p&gt;
@@ -68,47 +135,47 @@
 &lt;p&gt;Go to the directory where all yours rom files are originally synced (the root of your custom rom files). Now open a terminal and issue this command:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Please note this beforehand that running the following code will ask you to enter password for several keys and several number of times. I will say that just enter 1 password and copy+paste it on all the places where it asks for a password to be entered.&lt;/p&gt;
 &lt;h4 id=&#34;_do-note-this-password-down-as-we-will-have-to-use-it-when-we-sign-the-builds_&#34;&gt;&lt;em&gt;DO NOTE THIS PASSWORD DOWN, as we will have to use it when we sign the builds.&lt;/em&gt;&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;subject&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com&amp;#39;&lt;/span&gt;
-mkdir ~/.android-certs
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; cert in bluetooth cyngn-app media networkstack platform releasekey sdk_sandbox shared testcert testkey verity; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;    ./development/tools/make_key ~/.android-certs/$cert &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$subject&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;subject&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir ~/.android-certs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; cert in bluetooth cyngn-app media networkstack platform releasekey sdk_sandbox shared testcert testkey verity; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;    ./development/tools/make_key ~/.android-certs/$cert &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$subject&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now we need are required to re-sign APEX keys. To do so, simply run the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp ./development/tools/make_key ~/.android-certs/
-sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;s|2048|4096|g&amp;#39;&lt;/span&gt; ~/.android-certs/make_key
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp ./development/tools/make_key ~/.android-certs/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sed -i &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;s|2048|4096|g&amp;#39;&lt;/span&gt; ~/.android-certs/make_key
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now finally, we must generate our keys. I will strongly recommend you to generate them &lt;strong&gt;with&lt;/strong&gt; a password (re-use the password you used in step 1).&lt;/p&gt;
 &lt;p&gt;The command to run is in &lt;a href=&#34;https://wiki.lineageos.org/signing_builds#generate-keys-with-a-password&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: If you have issues following up with these steps, I have a script that will execute the commands for you (of course, you have to manually enter the password for each keys). You can find that script &lt;a href=&#34;https://github.com/ObsidianMaximus/scripts/blob/master/signing/Generate_Keys.sh&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Usage (copy paste this in terminal):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Generate_Keys.sh
-bash Generate_Keys.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Generate_Keys.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash Generate_Keys.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Now, the steps to &lt;strong&gt;make a .zip flashable package&lt;/strong&gt; are as follows:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Source the envsetup.sh by executing this command:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;source build/envsetup.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;source build/envsetup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now finally, we will have to start compiling the files for our custom ROM (this will take a long time, depending on your computer&amp;rsquo;s specs). To do so, run the following command (replacing the codename with your device codename):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;breakfast &amp;lt;codename&amp;gt;
-mka target-files-package otatools
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;breakfast &amp;lt;codename&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mka target-files-package otatools
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now, it is time to sign all of our APKs and APEXes and build the .zip package.&lt;/p&gt;
 &lt;p&gt;We will use 2 environment variables to ease our task, as they will allow us to sign without having to enter the password several times. For that, we must issue these 2 commands in the terminal:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;export ANDROID_PW_FILE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/path/to/your/password/file
-export EDITOR&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;your_preferred_text_editor
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: &lt;em&gt;Replace the fields above as required. For the &lt;strong&gt;ANDROID_PW_FILE&lt;/strong&gt;, just create a file somewhere and input its path there. As for the &lt;strong&gt;EDITOR&lt;/strong&gt; variable, choose whichever editor you like (eg. vim, nano, codium, etc).&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export ANDROID_PW_FILE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/path/to/your/password/file
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export EDITOR&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;your_preferred_text_editor
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: &lt;em&gt;Replace the fields above as required. For the &lt;strong&gt;ANDROID_PW_FILE&lt;/strong&gt;, just create a file somewhere and input its path there. As for the &lt;strong&gt;EDITOR&lt;/strong&gt; variable, choose whichever editor you like (eg. vim, nano, codium, etc).&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Next run the following commands to call the script to start signing:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Sign.sh
-bash Sign.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: &lt;em&gt;This script will invoke a command &amp;ldquo;&lt;strong&gt;sign_target_files_apks&lt;/strong&gt;&amp;rdquo;, which should open the editor which you specified above, but if it does not, then open the file that you had given above in &lt;strong&gt;&amp;ldquo;ANDROID_PW_FILE&amp;rdquo;&lt;/strong&gt; and you should have stuff inside of it with empty spaces in these &amp;ldquo;[[[      ]]]&amp;rdquo; brackets.&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Sign.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash Sign.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: &lt;em&gt;This script will invoke a command &amp;ldquo;&lt;strong&gt;sign_target_files_apks&lt;/strong&gt;&amp;rdquo;, which should open the editor which you specified above, but if it does not, then open the file that you had given above in &lt;strong&gt;&amp;ldquo;ANDROID_PW_FILE&amp;rdquo;&lt;/strong&gt; and you should have stuff inside of it with empty spaces in these &amp;ldquo;[[[      ]]]&amp;rdquo; brackets.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Fill the password in this empty space for all the apks [make sure to fill it between the 3 left and 3 right brackets], and then save this file, and re-run the above script by simple doing: &lt;strong&gt;&lt;code&gt;bash Sign.sh&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Wait patiently, it can take some time to do all of the above process.&lt;/p&gt;
 &lt;/li&gt;
@@ -206,7 +273,7 @@ Executing the commands in the script installed all it&amp;rsquo;s drivers. Now n
 		
 		<guid>https://krishnayadav.xyz/blog/ubuntutouchportpart1/</guid>
 		<description>&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h1&gt;
-&lt;p&gt;So I recently decided to get more involved in the Android world and came about a &amp;lsquo;new&amp;rsquo; type of OS, known as Ubuntu Touch. I thought a bit on it and decided to start the porting process for it for my device Realme GT Neo 2 [codenamed:bitra].&lt;/p&gt;
+&lt;p&gt;So I recently decided to get more involved in the Android world and came about a &amp;rsquo;new&amp;rsquo; type of OS, known as Ubuntu Touch. I thought a bit on it and decided to start the porting process for it for my device Realme GT Neo 2 [codenamed:bitra].&lt;/p&gt;
 &lt;p&gt;I started with the &lt;a href=&#34;https://docs.ubports.com/en/latest/porting/introduction/index.html&#34;&gt;official documentation of UBports&lt;/a&gt; where in they gave some good amount of introduction on how and why certain things needed to be done.&lt;/p&gt;
 &lt;p&gt;The guide mentions the use of GSI for devices with Android 8+ and, as my device is indeed treble supported, I think I will head to using GSI only.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://docs.ubports.com/en/latest/porting/build_and_boot/standalone_kernel_build.html&#34;&gt;Standalone Kernel Method (Halium 9 and newer)&lt;/a&gt; is very interesting as it seems to be the least tiresome way for porting among all of the 3 mentioned methods. So I started with this and did the steps as mentioned in the guide.&lt;/p&gt;
@@ -243,25 +310,25 @@ Executing the commands in the script installed all it&amp;rsquo;s drivers. Now n
 &lt;li&gt;Now, become root by typing &lt;strong&gt;su&lt;/strong&gt; in the shell on your PC.&lt;/li&gt;
 &lt;li&gt;Copy/Paste the following code in the shell.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; PARTITION in &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot_a&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot_b&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-  BLOCK&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;find /dev/block &lt;span style=&#34;color:#ae81ff&#34;&gt;\(&lt;/span&gt; -type b -o -type c -o -type l &lt;span style=&#34;color:#ae81ff&#34;&gt;\)&lt;/span&gt; -iname &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$PARTITION&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; -print -quit 2&amp;gt;/dev/null&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; -n &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$BLOCK&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-    echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$PARTITION&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;readlink -f &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$BLOCK&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;fi&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This command will display the boot partition paths for both A/B and A-only devices.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; PARTITION in &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot_a&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boot_b&amp;#34;&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  BLOCK&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;find /dev/block &lt;span style=&#34;color:#ae81ff&#34;&gt;\(&lt;/span&gt; -type b -o -type c -o -type l &lt;span style=&#34;color:#ae81ff&#34;&gt;\)&lt;/span&gt; -iname &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$PARTITION&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; -print -quit 2&amp;gt;/dev/null&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; -n &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$BLOCK&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$PARTITION&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;readlink -f &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$BLOCK&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This command will display the boot partition paths for both A/B and A-only devices.&lt;/p&gt;
 &lt;h1 id=&#34;note&#34;&gt;Note!&lt;/h1&gt;
 &lt;p&gt;On &lt;a href=&#34;https://source.android.com/docs/core/ota/ab&#34;&gt;A/B devices&lt;/a&gt;, the loop command will display the boot partition paths for both slots, something like this!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;boot_a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda40
-boot_b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda41
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this case, you can extract the image corresponding to your currently active slot.To determine the active slot, enter the command &lt;code&gt;getprop ro.boot.slot_suffix&lt;/code&gt;. If the output is _a, use the path for boot_a; otherwise, use the path for boot_b.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;boot_a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda40
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;boot_b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda41
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this case, you can extract the image corresponding to your currently active slot.To determine the active slot, enter the command &lt;code&gt;getprop ro.boot.slot_suffix&lt;/code&gt;. If the output is _a, use the path for boot_a; otherwise, use the path for boot_b.&lt;/p&gt;
 &lt;ol start=&#34;6&#34;&gt;
 &lt;li&gt;Finally, use the following command to extract the image from the specified boot path:&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;lt;boot_partition_path&amp;gt; of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;lt;output_path&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/dev/block/mmcblk0p42 of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/sdcard/boot_a.img
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I hope this did work for you, as it did indeed work for me!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dd &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;lt;boot_partition_path&amp;gt; of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&amp;lt;output_path&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dd &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/dev/block/mmcblk0p42 of&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/sdcard/boot_a.img
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I hope this did work for you, as it did indeed work for me!&lt;/p&gt;
 &lt;p&gt;CREDITS : &lt;a href=&#34;https://gist.github.com/gitclone-url/a1f693b64d8f8701ec24477a2ccaab87&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;
 </description>
 	</item>

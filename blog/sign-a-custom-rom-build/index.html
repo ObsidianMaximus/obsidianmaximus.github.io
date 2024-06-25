@@ -28,47 +28,47 @@ NOTE: You only need to run this once.">
 <p>Go to the directory where all yours rom files are originally synced (the root of your custom rom files). Now open a terminal and issue this command:</p>
 <p><strong>NOTE</strong>: Please note this beforehand that running the following code will ask you to enter password for several keys and several number of times. I will say that just enter 1 password and copy+paste it on all the places where it asks for a password to be entered.</p>
 <h4 id="_do-note-this-password-down-as-we-will-have-to-use-it-when-we-sign-the-builds_"><em>DO NOTE THIS PASSWORD DOWN, as we will have to use it when we sign the builds.</em></h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">subject<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com&#39;</span>
-mkdir ~/.android-certs
-<span style="color:#66d9ef">for</span> cert in bluetooth cyngn-app media networkstack platform releasekey sdk_sandbox shared testcert testkey verity; <span style="color:#66d9ef">do</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    ./development/tools/make_key ~/.android-certs/$cert <span style="color:#e6db74">&#34;</span>$subject<span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span><span style="color:#66d9ef">done</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>subject<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com&#39;</span>
+</span></span><span style="display:flex;"><span>mkdir ~/.android-certs
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> cert in bluetooth cyngn-app media networkstack platform releasekey sdk_sandbox shared testcert testkey verity; <span style="color:#66d9ef">do</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    ./development/tools/make_key ~/.android-certs/$cert <span style="color:#e6db74">&#34;</span>$subject<span style="color:#e6db74">&#34;</span>; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div></li>
 <li>
 <p>Now we need are required to re-sign APEX keys. To do so, simply run the following:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cp ./development/tools/make_key ~/.android-certs/
-sed -i <span style="color:#e6db74">&#39;s|2048|4096|g&#39;</span> ~/.android-certs/make_key
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp ./development/tools/make_key ~/.android-certs/
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;s|2048|4096|g&#39;</span> ~/.android-certs/make_key
+</span></span></code></pre></div></li>
 <li>
 <p>Now finally, we must generate our keys. I will strongly recommend you to generate them <strong>with</strong> a password (re-use the password you used in step 1).</p>
 <p>The command to run is in <a href="https://wiki.lineageos.org/signing_builds#generate-keys-with-a-password">here</a></p>
 <p><strong>NOTE</strong>: If you have issues following up with these steps, I have a script that will execute the commands for you (of course, you have to manually enter the password for each keys). You can find that script <a href="https://github.com/ObsidianMaximus/scripts/blob/master/signing/Generate_Keys.sh">here</a></p>
 <p>Usage (copy paste this in terminal):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Generate_Keys.sh
-bash Generate_Keys.sh
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Generate_Keys.sh
+</span></span><span style="display:flex;"><span>bash Generate_Keys.sh
+</span></span></code></pre></div></li>
 </ol>
 <p>Now, the steps to <strong>make a .zip flashable package</strong> are as follows:</p>
 <ol>
 <li>
 <p>Source the envsetup.sh by executing this command:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">source build/envsetup.sh
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>source build/envsetup.sh
+</span></span></code></pre></div></li>
 <li>
 <p>Now finally, we will have to start compiling the files for our custom ROM (this will take a long time, depending on your computer&rsquo;s specs). To do so, run the following command (replacing the codename with your device codename):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">breakfast &lt;codename&gt;
-mka target-files-package otatools
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>breakfast &lt;codename&gt;
+</span></span><span style="display:flex;"><span>mka target-files-package otatools
+</span></span></code></pre></div></li>
 <li>
 <p>Now, it is time to sign all of our APKs and APEXes and build the .zip package.</p>
 <p>We will use 2 environment variables to ease our task, as they will allow us to sign without having to enter the password several times. For that, we must issue these 2 commands in the terminal:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export ANDROID_PW_FILE<span style="color:#f92672">=</span>/path/to/your/password/file
-export EDITOR<span style="color:#f92672">=</span>your_preferred_text_editor
-</code></pre></div><p><strong>NOTE</strong>: <em>Replace the fields above as required. For the <strong>ANDROID_PW_FILE</strong>, just create a file somewhere and input its path there. As for the <strong>EDITOR</strong> variable, choose whichever editor you like (eg. vim, nano, codium, etc).</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export ANDROID_PW_FILE<span style="color:#f92672">=</span>/path/to/your/password/file
+</span></span><span style="display:flex;"><span>export EDITOR<span style="color:#f92672">=</span>your_preferred_text_editor
+</span></span></code></pre></div><p><strong>NOTE</strong>: <em>Replace the fields above as required. For the <strong>ANDROID_PW_FILE</strong>, just create a file somewhere and input its path there. As for the <strong>EDITOR</strong> variable, choose whichever editor you like (eg. vim, nano, codium, etc).</em></p>
 <p>Next run the following commands to call the script to start signing:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Sign.sh
-bash Sign.sh
-</code></pre></div><p><strong>NOTE</strong>: <em>This script will invoke a command &ldquo;<strong>sign_target_files_apks</strong>&rdquo;, which should open the editor which you specified above, but if it does not, then open the file that you had given above in <strong>&ldquo;ANDROID_PW_FILE&rdquo;</strong> and you should have stuff inside of it with empty spaces in these &ldquo;[[[      ]]]&rdquo; brackets.</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -O https://raw.githubusercontent.com/ObsidianMaximus/scripts/master/signing/Sign.sh
+</span></span><span style="display:flex;"><span>bash Sign.sh
+</span></span></code></pre></div><p><strong>NOTE</strong>: <em>This script will invoke a command &ldquo;<strong>sign_target_files_apks</strong>&rdquo;, which should open the editor which you specified above, but if it does not, then open the file that you had given above in <strong>&ldquo;ANDROID_PW_FILE&rdquo;</strong> and you should have stuff inside of it with empty spaces in these &ldquo;[[[      ]]]&rdquo; brackets.</em></p>
 <p>Fill the password in this empty space for all the apks [make sure to fill it between the 3 left and 3 right brackets], and then save this file, and re-run the above script by simple doing: <strong><code>bash Sign.sh</code></strong>.</p>
 <p><strong>NOTE</strong>: Wait patiently, it can take some time to do all of the above process.</p>
 </li>
