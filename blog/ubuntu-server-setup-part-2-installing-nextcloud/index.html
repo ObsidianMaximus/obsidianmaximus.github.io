@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<title>Ubuntu Server Setup Part 2: Installing Nextcloud | Krishna&#39;s Webplace</title>
-	<link rel="canonical" href="https://krishnayadav.xyz/">
+	<link rel="canonical" href="https://krishnayadav.xyz/donate">
 	<link rel='alternate' type='application/rss+xml' title="Krishna&#39;s Webplace RSS" href='/index.xml'>
 	<link rel='stylesheet' type='text/css' href='/style.css'>
 	<link rel="icon" href="/favicon.jpg">
@@ -25,51 +25,51 @@ The steps to do the same are as follows:">
 <ol>
 <li>
 <p>You should be using a normal user account, and should not be executing the commands as &lsquo;root&rsquo;. In case you are &lsquo;root&rsquo;, simply execute the following:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>adduser &lt;Enter your desired username here&gt;
-</span></span><span style="display:flex;"><span>usermod -aG sudo &lt;Enter the username you set above&gt;
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">adduser &lt;Enter your desired username here&gt;
+usermod -aG sudo &lt;Enter the username you set above&gt;
+</code></pre></div></li>
 <li>
 <p>Update the system&rsquo;s cache and also apply any pending updates with the following command:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo apt update &amp;&amp; sudo apt dist-upgrade
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo apt update &amp;&amp; sudo apt dist-upgrade
+</code></pre></div></li>
 <li>
 <p>Now, let us download and install php, mariadb and apache (along with some additional dependencies and required packages):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo apt install libmagickcore-6.q16-6-extra php php-apcu php-bcmath php-cli php-common php-curl
-</span></span><span style="display:flex;"><span>php-gd php-gmp php-imagick php-intl php-mbstring php-mysql php-zip php-xml apache2 unzip 
-</span></span><span style="display:flex;"><span>mariadb-server redis-server php-redis -y
-</span></span></code></pre></div><p><em>Note:</em> You can check if apache is running [Should be active and enabled] with:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>systemctl status apache2
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo apt install libmagickcore-6.q16-6-extra php php-apcu php-bcmath php-cli php-common php-curl
+php-gd php-gmp php-imagick php-intl php-mbstring php-mysql php-zip php-xml apache2 unzip 
+mariadb-server redis-server php-redis -y
+</code></pre></div><p><em>Note:</em> You can check if apache is running [Should be active and enabled] with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">systemctl status apache2
+</code></pre></div></li>
 <li>
 <p>Download and unzip nextcloud with:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>wget https://download.nextcloud.com/server/releases/latest.zip
-</span></span><span style="display:flex;"><span>unzip latest.zip
-</span></span></code></pre></div><p>We will now change the ownership of nextcloud to the group and user &lsquo;www-data&rsquo; and move the nextcloud folder into the &lsquo;/var/www/&rsquo; directory as SOP. The &lsquo;www-data&rsquo; is a user (and group) created by default when we installed apache2. The <strong>-R</strong> flag changes ownership of all files and folders within the nextcloud directory recursively.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo chown www-data:www-data -R nextcloud
-</span></span><span style="display:flex;"><span>sudo mv nextcloud /var/www/
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">wget https://download.nextcloud.com/server/releases/latest.zip
+unzip latest.zip
+</code></pre></div><p>We will now change the ownership of nextcloud to the group and user &lsquo;www-data&rsquo; and move the nextcloud folder into the &lsquo;/var/www/&rsquo; directory as SOP. The &lsquo;www-data&rsquo; is a user (and group) created by default when we installed apache2. The <strong>-R</strong> flag changes ownership of all files and folders within the nextcloud directory recursively.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo chown www-data:www-data -R nextcloud
+sudo mv nextcloud /var/www/
+</code></pre></div></li>
 <li>
 <p>PHP needs some modules to be enabled for it&rsquo;s functioning. Do so with:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo phpenmod imagick intl bcmath gmp  
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo phpenmod imagick intl bcmath gmp  
+</code></pre></div></li>
 <li>
 <p>Let us start configuring database, which is required to base our Nextcloud on. We must first run a setup of mysql to secure our installation. To do so, run:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo mysql_secure_installation
-</span></span></code></pre></div><p>It will open a console asking you to fill certain details.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo mysql_secure_installation
+</code></pre></div><p>It will open a console asking you to fill certain details.</p>
 <ul>
 <li>The first prompt will be asking for default root password, just press Enter button to skip this option.</li>
-<li>Next it will ask for Unix socket, <strong>type &rsquo;n&rsquo;</strong> and proceed.</li>
+<li>Next it will ask for Unix socket, <strong>type &lsquo;n&rsquo;</strong> and proceed.</li>
 <li>Then it will ask to enter a password, <strong>type &lsquo;y&rsquo;</strong> and then enter a password (store it securely).</li>
 <li>Just keep pressing Enter button to skip through rest of the options (Capital letter means default option, <strong>&lsquo;Y&rsquo;</strong> in all these options).</li>
 </ul>
 </li>
 <li>
 <p>Once done with this, we must now configure mariadb. Open it&rsquo;s shell by:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo mariadb
-</span></span></code></pre></div><p>In this shell, type these commands (replace where marked):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo mariadb
+</code></pre></div><p>In this shell, type these commands (replace where marked):</p>
 <ul>
 <li>CREATE DATABASE nextcloud;</li>
-<li>GRANT ALL PRIVILEGES ON nextcloud.* TO &rsquo;nextcloud&rsquo;@&rsquo;localhost&rsquo; IDENTIFIED BY &lt;&lsquo;Enter a secure password here for the db. Do keep the password inside single inverted commas.&rsquo;&gt;;</li>
+<li>GRANT ALL PRIVILEGES ON nextcloud.* TO &lsquo;nextcloud&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED BY &lt;&lsquo;Enter a secure password here for the db. Do keep the password inside single inverted commas.'&gt;;</li>
 <li>FLUSH PRIVILEGES;</li>
 <li>exit;</li>
 </ul>
@@ -78,55 +78,55 @@ The steps to do the same are as follows:">
 <li>
 <p>We should now generate our own SSL/TLS certificate to use with our server (In case you have a static IP, you should use Let&rsquo;s encrypt&rsquo;s certificate using <a href="https://certbot.eff.org/">Certbot</a>)</p>
 <p><strong>NOTE:</strong> This command will ask you several question. Answer whatever you want to fill in (won&rsquo;t have much effect).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>mkdir $HOME/certs &amp;&amp; cd $HOME/certs/
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 3650 -nodes
-</span></span></code></pre></div><p><strong>NOTE:</strong> Please store both the key.pem and cert.pem somewhere secured. Also import cert.pem as an Authorities certificate in your browser to avoid the browser from flagging our nextcloud instance as a &lsquo;Not Secure&rsquo; website everytime we visit it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">mkdir $HOME/certs &amp;&amp; cd $HOME/certs/
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 3650 -nodes
+</code></pre></div><p><strong>NOTE:</strong> Please store both the key.pem and cert.pem somewhere secured. Also import cert.pem as an Authorities certificate in your browser to avoid the browser from flagging our nextcloud instance as a &lsquo;Not Secure&rsquo; website everytime we visit it.</p>
 </li>
 <li>
 <p>Now we must disable the default webpage of apache, place our config file in the apache directory and enable the config for apache to load the nextcloud page (Along with adding Strict Transport Security).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo a2dissite 000-default.conf
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>sudo nano /etc/apache2/sites-available/nextcloud.conf
-</span></span></code></pre></div><p>In the text editor which opens, paste the following code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>&lt;VirtualHost *:80&gt;
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    RewriteEngine On
-</span></span><span style="display:flex;"><span>    RewriteCond %{SERVER_PORT} !443
-</span></span><span style="display:flex;"><span>    RewriteRule ^(/(.*))?$ https://%{HTTP_HOST}/$1 [R=301,L]
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>&lt;/VirtualHost&gt;
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>&lt;VirtualHost *:443&gt;               
-</span></span><span style="display:flex;"><span>    DocumentRoot &#34;/var/www/nextcloud&#34;
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    SSLCertificateFile $HOME/certs/cert.pem
-</span></span><span style="display:flex;"><span>    SSLCertificateKeyFile $HOME/certs/key.pem
-</span></span><span style="display:flex;"><span>    SSLEngine on
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    &lt;Directory &#34;/var/www/nextcloud/&#34;&gt;
-</span></span><span style="display:flex;"><span>        Options MultiViews FollowSymlinks
-</span></span><span style="display:flex;"><span>        AllowOverride All
-</span></span><span style="display:flex;"><span>        Order allow,deny
-</span></span><span style="display:flex;"><span>        Allow from all
-</span></span><span style="display:flex;"><span>    &lt;/Directory&gt;
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    TransferLog /var/log/apache2/nextcloud_access.log
-</span></span><span style="display:flex;"><span>    ErrorLog /var/log/apache2/nextcloud_error.log
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    &lt;IfModule mod_headers.c&gt;
-</span></span><span style="display:flex;"><span>        Header always set Strict-Transport-Security &#34;max-age=15552000; includeSubDomains&#34;
-</span></span><span style="display:flex;"><span>    &lt;/IfModule&gt;
-</span></span><span style="display:flex;"><span>&lt;/VirtualHost&gt;
-</span></span></code></pre></div><p>Save this file by doing ctrl+o and ctrl+x. Then enable this config file using:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo a2ensite nextcloud.conf
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo a2dissite 000-default.conf
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>sudo nano /etc/apache2/sites-available/nextcloud.conf
+</code></pre></div><p>In the text editor which opens, paste the following code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">&lt;VirtualHost *:80&gt;
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    RewriteEngine On
+    RewriteCond %{SERVER_PORT} !443
+    RewriteRule ^(/(.*))?$ https://%{HTTP_HOST}/$1 [R=301,L]
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>&lt;/VirtualHost&gt;
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>&lt;VirtualHost *:443&gt;               
+    DocumentRoot &#34;/var/www/nextcloud&#34;
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    SSLCertificateFile $HOME/certs/cert.pem
+    SSLCertificateKeyFile $HOME/certs/key.pem
+    SSLEngine on
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    &lt;Directory &#34;/var/www/nextcloud/&#34;&gt;
+        Options MultiViews FollowSymlinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    &lt;/Directory&gt;
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    TransferLog /var/log/apache2/nextcloud_access.log
+    ErrorLog /var/log/apache2/nextcloud_error.log
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    &lt;IfModule mod_headers.c&gt;
+        Header always set Strict-Transport-Security &#34;max-age=15552000; includeSubDomains&#34;
+    &lt;/IfModule&gt;
+&lt;/VirtualHost&gt;
+</code></pre></div><p>Save this file by doing ctrl+o and ctrl+x. Then enable this config file using:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo a2ensite nextcloud.conf
+</code></pre></div></li>
 <li>
 <p>Let us tune PHP to make our server run more efficiently:</p>
 <p><strong>Note</strong>: PHP versions can differ on different distributions, like 8.3 on Ubuntu 24 LTS and 8.1 on 22 LTS, thus press tab as directed below:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo nano /etc/php/&lt;press tab to autocomplete here&gt;/apache2/php.ini
-</span></span></code></pre></div><p>Find and edit the file by change stuff inside it according to this (Replace the areas where you see fit. To remove a comment, remove the &lsquo;;&rsquo; semi-colon in front of the line in the file):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo nano /etc/php/&lt;press tab to autocomplete here&gt;/apache2/php.ini
+</code></pre></div><p>Find and edit the file by change stuff inside it according to this (Replace the areas where you see fit. To remove a comment, remove the &lsquo;;&rsquo; semi-colon in front of the line in the file):</p>
 <ul>
 <li>memory_limit = 2G</li>
 <li>upload_max_filesize = 20G</li>
@@ -143,37 +143,37 @@ The steps to do the same are as follows:">
 </li>
 <li>
 <p>Some modules are required by apache2, so enable them for use with nextcloud.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo a2enmod dir env headers mime rewrite ssl
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo a2enmod dir env headers mime rewrite ssl
+</code></pre></div></li>
 <li>
 <p>Enable the apcu module in php. This module caches data in memory, so helps in reducing database queries and file system operations. This also allows the occ script to function.</p>
 <p><strong>Note</strong>: PHP versions can differ on different distributions, like 8.3 on Ubuntu 24 LTS and 8.1 on 22 LTS, thus press tab as directed below:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>echo &#34;apc.enable_cli=1&#34; | sudo tee -a /etc/php/&lt;press tab here&gt;/mods-available/apcu.ini
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">echo &#34;apc.enable_cli=1&#34; | sudo tee -a /etc/php/&lt;press tab here&gt;/mods-available/apcu.ini
+</code></pre></div></li>
 <li>
 <p>Finally, let us restart apache2 to get nextcloud working:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo systemctl restart apache2
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo systemctl restart apache2
+</code></pre></div></li>
 </ol>
 <hr>
-<p>Create an administrator account in the webpage that opens when you visit the IP address / URL that you attached to the server. Then when you scroll down, it will ask for your database details. Fill according to what you entered in the above steps (db account and name should be &rsquo;nextcloud&rsquo; and password will be the one you entered while configuring mariadb, step 7).</p>
+<p>Create an administrator account in the webpage that opens when you visit the IP address / URL that you attached to the server. Then when you scroll down, it will ask for your database details. Fill according to what you entered in the above steps (db account and name should be &lsquo;nextcloud&rsquo; and password will be the one you entered while configuring mariadb, step 7).</p>
 <p>Sign in and setup nextcloud as you like. Next, head over to the Admin settings by clicking on your profile on top right side and then on &ldquo;Administration settings&rdquo;.</p>
 <p><img src="/img/admin_settings_nextcloud.png" alt=""></p>
 <p>In here, you will see the various issues that nextcloud has automatically detected with the installation. I cannot give solutions to all the issues present over there, but some of them which I had faced personally are as follows:</p>
 <ol>
 <li>
 <p>If you get a very big error which states that the database is missing some indices, simply do as follows:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo chmod +x /var/www/nextcloud/occ                                      
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>sudo -u &#39;www-data&#39; /var/www/nextcloud/occ db:add-missing-indices          
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>sudo chmod -x /var/www/nextcloud/occ                                      
-</span></span></code></pre></div><p>This adds the missing indices using occ script provided by nextcloud themselves, which helps in correcting issues with nextcloud.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo chmod +x /var/www/nextcloud/occ                                      
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>sudo -u &#39;www-data&#39; /var/www/nextcloud/occ db:add-missing-indices          
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>sudo chmod -x /var/www/nextcloud/occ                                      
+</code></pre></div><p>This adds the missing indices using occ script provided by nextcloud themselves, which helps in correcting issues with nextcloud.</p>
 </li>
 <li>
 <p>Enable memory caching:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo nano /var/www/nextcloud/config/config.php
-</span></span></code></pre></div><p>In the text editor which opens, add the following line somewhere in between the other lines (before the closing bracktes atleast):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo nano /var/www/nextcloud/config/config.php
+</code></pre></div><p>In the text editor which opens, add the following line somewhere in between the other lines (before the closing bracktes atleast):</p>
 <ul>
 <li>&lsquo;memcache.local&rsquo; =&gt; &lsquo;\OC\Memcache\APCu&rsquo;,</li>
 <li>&lsquo;default_phone_region&rsquo; =&gt; &lsquo;IN&rsquo;,</li>
@@ -182,10 +182,10 @@ The steps to do the same are as follows:">
 </li>
 <li>
 <p>Additional security parameter is to lock down the config.php file to root group, as it contains sensitive information like our database password.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>sudo chmod 660 /var/www/nextcloud/config/config.php
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>sudo chown root:www-data /var/www/nextcloud/config/config.php
-</span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">sudo chmod 660 /var/www/nextcloud/config/config.php
+<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>sudo chown root:www-data /var/www/nextcloud/config/config.php
+</code></pre></div></li>
 </ol>
 <hr>
 <p>After doing this much, you can restart apache and/or even reboot your system once.</p>
@@ -193,14 +193,14 @@ The steps to do the same are as follows:">
 
 
 <div id="nextprev">
-<a href="/blog/whatsapp-without-phone/"><div id="prevart">Previous:<br>Whatsapp Without Phone</div></a>
+<a href="/donate/blog/whatsapp-without-phone/"><div id="prevart">Previous:<br>Whatsapp Without Phone</div></a>
 </div>
 <div style="clear:both" class=taglist>Related<br><a id="tag_nextcloud" href="https://krishnayadav.xyz/tags/nextcloud">Nextcloud</a> &middot; <a id="tag_ubuntu" href="https://krishnayadav.xyz/tags/ubuntu">Ubuntu</a> &middot; <a id="tag_server" href="https://krishnayadav.xyz/tags/server">Server</a></div>
 </article>
 </main>
 
 <footer>
-	<a href="https://krishnayadav.xyz/">https://krishnayadav.xyz/</a><br><br><a href="/index.xml"><img src="/rss.svg" style="max-height:1.5em" alt="RSS Feed" title="Subscribe via RSS for updates."></a>
+	<a href="https://krishnayadav.xyz/donate">https://krishnayadav.xyz/donate</a><br><br><a href="/index.xml"><img src="/rss.svg" style="max-height:1.5em" alt="RSS Feed" title="Subscribe via RSS for updates."></a>
 </footer>
 
 </body>
