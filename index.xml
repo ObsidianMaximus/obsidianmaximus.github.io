@@ -1,21 +1,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
 	<title>Krishna&#39;s Webplace</title>
-	<link>https://krishnayadav.xyz/donate/</link>
+	<link>https://krishnayadav.xyz/</link>
 	<description>Recent content on Krishna&#39;s Webplace</description>
 	<generator>Hugo -- gohugo.io</generator>
 	<language>en-us</language>
 	<lastBuildDate>Fri, 03 May 2024 15:13:53 +0530</lastBuildDate>
     
-        <atom:link href="https://krishnayadav.xyz/donate/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://krishnayadav.xyz/index.xml" rel="self" type="application/rss+xml" />
 	
 	
 	<item>
 		<title>Ubuntu Server Setup Part 2: Installing Nextcloud</title>
-		<link>https://krishnayadav.xyz/donate/blog/ubuntu-server-setup-part-2-installing-nextcloud/</link>
+		<link>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-2-installing-nextcloud/</link>
 		<pubDate>Sat, 22 Jun 2024 20:35:26 +0530</pubDate>
 		
-		<guid>https://krishnayadav.xyz/donate/blog/ubuntu-server-setup-part-2-installing-nextcloud/</guid>
+		<guid>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-2-installing-nextcloud/</guid>
 		<description>&lt;p&gt;I finally setup my Ubuntu server quite well along with wifi drivers.&lt;/p&gt;
 &lt;p&gt;Next up, I had to install Nextcloud, because I wanted a cloud storage that could backup and sync photos, videos and other stuff from several devices at my home. Thus I looked up a tutorial on it and found one by Jay, which was extremely easy to follow and helped me setup my Nextcloud instance from scratch.&lt;/p&gt;
 &lt;p&gt;The steps to do the same are as follows:&lt;/p&gt;
@@ -155,7 +155,7 @@ sudo mv nextcloud /var/www/
 &lt;hr&gt;
 &lt;p&gt;Create an administrator account in the webpage that opens when you visit the IP address / URL that you attached to the server. Then when you scroll down, it will ask for your database details. Fill according to what you entered in the above steps (db account and name should be &amp;lsquo;nextcloud&amp;rsquo; and password will be the one you entered while configuring mariadb, step 7).&lt;/p&gt;
 &lt;p&gt;Sign in and setup nextcloud as you like. Next, head over to the Admin settings by clicking on your profile on top right side and then on &amp;ldquo;Administration settings&amp;rdquo;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/donate/img/admin_settings_nextcloud.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/admin_settings_nextcloud.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;In here, you will see the various issues that nextcloud has automatically detected with the installation. I cannot give solutions to all the issues present over there, but some of them which I had faced personally are as follows:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -192,22 +192,22 @@ sudo mv nextcloud /var/www/
 	
 	<item>
 		<title>Whatsapp Without Phone</title>
-		<link>https://krishnayadav.xyz/donate/blog/whatsapp-without-phone/</link>
+		<link>https://krishnayadav.xyz/blog/whatsapp-without-phone/</link>
 		<pubDate>Wed, 29 May 2024 20:43:23 +0530</pubDate>
 		
-		<guid>https://krishnayadav.xyz/donate/blog/whatsapp-without-phone/</guid>
+		<guid>https://krishnayadav.xyz/blog/whatsapp-without-phone/</guid>
 		<description>&lt;h3 id=&#34;yes-whatsapp-without-its-app-on-phone-you-read-it-right&#34;&gt;Yes, whatsapp without it&amp;rsquo;s app on phone, you read it right.&lt;/h3&gt;
 &lt;p&gt;I had stopped using whatsapp because I didn&amp;rsquo;t want to have it&amp;rsquo;s &amp;ldquo;proprietary&amp;rdquo; app on my degoogled device.&lt;/p&gt;
 &lt;p&gt;But you see, this application is used by most of my academic professors and other colleages, so I had to somehow use it (without the app on my phone, of course).&lt;/p&gt;
 &lt;p&gt;So I thought of running it through some android emulator, but didn&amp;rsquo;t want to natively run it on my linux machine.&lt;/p&gt;
 &lt;p&gt;Thus I installed Windows 10 through virtual box and then installed bluestacks in it. But bluestacks was not starting properly (issues with virtualization).&lt;/p&gt;
 &lt;p&gt;Had to &lt;strong&gt;enable&lt;/strong&gt; the following 2 options to get virtualization working:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/donate/img/enable_virt.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/enable_virt.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;If this still doesn&amp;rsquo;t work for you, I think you should also enable Virtualization and Hyper-V support from &amp;ldquo;Turn on windows features&amp;rdquo; from within your Windows VM.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;After this, bluestacks started working normally and I installed whatsapp normally in it and logged in to my account &lt;em&gt;[A strange thing was that all my chats and groups were gone, but maybe that was because I was logging in after around 1 month].&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;My next major work was to get whatsapp web working, so that I could use it on my other devices (of course, not going to run the emulator each time I have to use it).&lt;/p&gt;
 &lt;p&gt;To do so, whatsapp requires web versions to have their QR code scanned by the whatsapp application for login, thus I used a usb camera that I had with me, but I got this error when I tried to use the webcam in my Windows VM:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/donate/img/cam_notFound_big.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/cam_notFound_big.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;It required a bit of work to implement a &amp;ldquo;Webcam Passthrough&amp;rdquo;, so that the VM instance could access the USB camera.&lt;/p&gt;
 &lt;p&gt;The steps were as follows [&lt;a href=&#34;https://askubuntu.com/a/1237808&#34;&gt;Credits&lt;/a&gt;]:&lt;/p&gt;
 &lt;ol&gt;
@@ -226,7 +226,7 @@ sudo mv nextcloud /var/www/
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;VBoxManage controlvm &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Windows&amp;#34;&lt;/span&gt; webcam attach .1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/donate/img/list_Webcam.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/list_Webcam.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;NOTE: If you shutdown or restart your VM, it will loose access to the camera. You need to re-run the step 3 command to get it working.&lt;/em&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;With this much, my VM was able to detect the webcam and without much difficulty, I was able to register with the whatsapp web version on my devices.&lt;/p&gt;
@@ -236,10 +236,10 @@ sudo mv nextcloud /var/www/
 	
 	<item>
 		<title>Sign a Custom ROM Build</title>
-		<link>https://krishnayadav.xyz/donate/blog/sign-a-custom-rom-build/</link>
+		<link>https://krishnayadav.xyz/blog/sign-a-custom-rom-build/</link>
 		<pubDate>Sun, 26 May 2024 21:05:20 +0530</pubDate>
 		
-		<guid>https://krishnayadav.xyz/donate/blog/sign-a-custom-rom-build/</guid>
+		<guid>https://krishnayadav.xyz/blog/sign-a-custom-rom-build/</guid>
 		<description>&lt;h3 id=&#34;this-guide-will-explain-how-to-sign-a-custom-rom-build-typically-unofficial-builds-as-most-official-roms-are-now-shipping-their-own-private-keys&#34;&gt;This guide will explain how to &lt;strong&gt;sign&lt;/strong&gt; a Custom ROM build (typically unofficial builds, as most official ROMs are now shipping their own private keys).&lt;/h3&gt;
 &lt;p&gt;I will use the &lt;a href=&#34;https://wiki.lineageos.org/signing_builds&#34;&gt;Lineage wiki guide&lt;/a&gt;, but simplify it in my own words at places where I feel this guide did not give more practical information to a new comer like me.&lt;/p&gt;
 &lt;p&gt;The steps to &lt;strong&gt;Generate the keys&lt;/strong&gt; are as follows:&lt;/p&gt;
@@ -303,10 +303,10 @@ bash Sign.sh
 	
 	<item>
 		<title>Ubuntu Server Setup Part 1</title>
-		<link>https://krishnayadav.xyz/donate/blog/ubuntu-server-setup-part-1/</link>
+		<link>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-1/</link>
 		<pubDate>Tue, 30 Apr 2024 19:46:03 +0530</pubDate>
 		
-		<guid>https://krishnayadav.xyz/donate/blog/ubuntu-server-setup-part-1/</guid>
+		<guid>https://krishnayadav.xyz/blog/ubuntu-server-setup-part-1/</guid>
 		<description>&lt;p&gt;I was wanting to learn on how to setup my servers and host stuff on them, but to host a server online, one needs to spend some amount of money on them, which i really didn&amp;rsquo;t want to. But then i remembered that i have one old dusty home computer that had been lying in my home since several years, while not really being used anymore.&lt;/p&gt;
 &lt;p&gt;So i decided to use this opportunity to reuse the same computer for my server tasks and in this way, i will be saving up on those server costs that i would have to pay [electricity is cheap here].&lt;/p&gt;
 &lt;p&gt;But i had a hurdle in my path, and that was my old monitor not working, due to which i was unable to get my cpu to give a basic display as it had only VGA output. And well, i couldn&amp;rsquo;t really use this PC with my current monitor, as this monitor supports only HDMI and Display Port. I did have one VGA-to-HDMI converter lying around with me, but that had malfunctioned as well.&lt;/p&gt;
@@ -333,10 +333,10 @@ Executing the commands in the script installed all it&amp;rsquo;s drivers. Now n
 	
 	<item>
 		<title>Use SSH or Rsync With Android</title>
-		<link>https://krishnayadav.xyz/donate/blog/use-ssh-or-rsync-with-android/</link>
+		<link>https://krishnayadav.xyz/blog/use-ssh-or-rsync-with-android/</link>
 		<pubDate>Fri, 26 Apr 2024 09:28:58 +0530</pubDate>
 		
-		<guid>https://krishnayadav.xyz/donate/blog/use-ssh-or-rsync-with-android/</guid>
+		<guid>https://krishnayadav.xyz/blog/use-ssh-or-rsync-with-android/</guid>
 		<description>&lt;p&gt;Today, i wanted to send a file from my desktop to my android device. I thought of using rsync for this purpose, which is a tool that i use frequently to sync files between my desktop and my laptop.&lt;/p&gt;
 &lt;p&gt;I thought of giving it a try and came across &lt;a href=&#34;https://howtos.davidsebek.com/android-rsync-termux.html&#34;&gt;this great article&lt;/a&gt; that explained just this.&lt;/p&gt;
 &lt;h3 id=&#34;note-this-guide-requires-both-the-computer-and-the-android-device-to-be-on-the-same-wifi-network&#34;&gt;NOTE: This guide requires both the computer and the Android device to be on the same wifi network.&lt;/h3&gt;
@@ -382,10 +382,10 @@ Executing the commands in the script installed all it&amp;rsquo;s drivers. Now n
 	
 	<item>
 		<title>Ubuntu Touch Port Part 1</title>
-		<link>https://krishnayadav.xyz/donate/blog/ubuntutouchportpart1/</link>
+		<link>https://krishnayadav.xyz/blog/ubuntutouchportpart1/</link>
 		<pubDate>Thu, 25 Apr 2024 13:38:00 +0530</pubDate>
 		
-		<guid>https://krishnayadav.xyz/donate/blog/ubuntutouchportpart1/</guid>
+		<guid>https://krishnayadav.xyz/blog/ubuntutouchportpart1/</guid>
 		<description>&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h1&gt;
 &lt;p&gt;So I recently decided to get more involved in the Android world and came about a &amp;lsquo;new&amp;rsquo; type of OS, known as Ubuntu Touch. I thought a bit on it and decided to start the porting process for it for my device Realme GT Neo 2 [codenamed:bitra].&lt;/p&gt;
 &lt;p&gt;I started with the &lt;a href=&#34;https://docs.ubports.com/en/latest/porting/introduction/index.html&#34;&gt;official documentation of UBports&lt;/a&gt; where in they gave some good amount of introduction on how and why certain things needed to be done.&lt;/p&gt;
@@ -393,26 +393,26 @@ Executing the commands in the script installed all it&amp;rsquo;s drivers. Now n
 &lt;p&gt;&lt;a href=&#34;https://docs.ubports.com/en/latest/porting/build_and_boot/standalone_kernel_build.html&#34;&gt;Standalone Kernel Method (Halium 9 and newer)&lt;/a&gt; is very interesting as it seems to be the least tiresome way for porting among all of the 3 mentioned methods. So I started with this and did the steps as mentioned in the guide.&lt;/p&gt;
 &lt;p&gt;The defconfig that i had to use is the &lt;a href=&#34;https://gitlab.com/Krishna-Yadav/android_kernel_realme_sm8250/-/blob/master/arch/arm64/configs/vendor/sm8250_defconfig?ref_type=heads&#34;&gt;sm8250_defconfig&lt;/a&gt;. Next i made a halium.config file as prompted.&lt;/p&gt;
 &lt;p&gt;Next, i had to fill in the deviceinfo file. For this purpose, I used the &lt;a href=&#34;https://gitlab.com/ubports/porting/community-ports/android11/xiaomi-poco-x3-pro/xiaomi-vayu&#34;&gt;Poco X3 Pro device branch&lt;/a&gt; as a dummy template and started filling stuff according to it and the guide.&lt;/p&gt;
-&lt;p&gt;But I got stuck on the &lt;em&gt;deviceinfo_bootimg_prebuilt_dtb&lt;/em&gt; step as i was not sure where to find my dtb. So i asked this question in the telegram group of Ubports and was recommended to run a script on the &lt;a href=&#34;https://krishnayadav.xyz/donate/bootimageextractionguide/index.html&#34;&gt;boot.img which i had extracted&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;But I got stuck on the &lt;em&gt;deviceinfo_bootimg_prebuilt_dtb&lt;/em&gt; step as i was not sure where to find my dtb. So i asked this question in the telegram group of Ubports and was recommended to run a script on the &lt;a href=&#34;https://krishnayadav.xyz/bootimageextractionguide/index.html&#34;&gt;boot.img which i had extracted&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The script was by LOS. It can be found &lt;a href=&#34;https://raw.githubusercontent.com/LineageOS/android_system_tools_mkbootimg/lineage-18.1/unpack_bootimg.py&#34;&gt;here&lt;/a&gt; [use it through curl -O options]. And it worked! I was able to get the output from my boot.img using the script by running this command : &lt;strong&gt;&lt;code&gt;python unpack_bootimg.py --boot_img boot.img&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;the-scripts-output-in-normal-format&#34;&gt;&lt;strong&gt;The script&amp;rsquo;s output in normal format.&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/donate/img/pyScriptLOS18.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/pyScriptLOS18.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;But then, i was recommended to add the option &lt;strong&gt;&lt;code&gt;--format mkbootimg&lt;/code&gt;&lt;/strong&gt; along with the above command to get the outputed text in terms of mkbootimg arguments, as it would output the values that were expected for the &lt;strong&gt;deviceinfo&lt;/strong&gt; file.&lt;/p&gt;
 &lt;p&gt;Unfortunately for me though, adding that option to the command gave me an error : &lt;strong&gt;&lt;code&gt;error: unrecognized arguments: --format mkbootimg&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;I then thought and checked the latest LOS branch from where i had got that previous script. And i did find an updated script from LOS21 that did have those options that i needed for mkbootimg format. The new script can be found &lt;a href=&#34;https://raw.githubusercontent.com/LineageOS/android_system_tools_mkbootimg/lineage-21.0/unpack_bootimg.py&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;After this, i ran the command again, now with the additional parameters to it and was indeed able to generate the output in mkbootimg format without any errors! The updated command : &lt;strong&gt;&lt;code&gt;python unpack_bootimg.py --boot_img boot.img --format mkbootimg&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;the-scripts-output-in-mkbootimg-format&#34;&gt;&lt;strong&gt;The script&amp;rsquo;s output in mkbootimg format.&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/donate/img/pyScriptLOS21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/img/pyScriptLOS21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;This has given me alot to work with now. I will be looking forward to progress even further and complete the deviceinfo file.&lt;/p&gt;
 </description>
 	</item>
 	
 	<item>
 		<title>Boot Image Extraction Guide</title>
-		<link>https://krishnayadav.xyz/donate/blog/bootimageextractionguide/</link>
+		<link>https://krishnayadav.xyz/blog/bootimageextractionguide/</link>
 		<pubDate>Wed, 24 Apr 2024 21:53:31 +0530</pubDate>
 		
-		<guid>https://krishnayadav.xyz/donate/blog/bootimageextractionguide/</guid>
+		<guid>https://krishnayadav.xyz/blog/bootimageextractionguide/</guid>
 		<description>&lt;p&gt;Guide on how to extract a boot image from any Android phone [Requires Magisk and Computer]&lt;/p&gt;
 &lt;h2 id=&#34;getting-started&#34;&gt;Getting started!&lt;/h2&gt;
 &lt;p&gt;Accessing and modifying system files on your device typically requires superuser permissions. To extract the boot image, we&amp;rsquo;ll need a root environment. We&amp;rsquo;ll achieve this by using Magisk.&lt;/p&gt;
@@ -449,21 +449,21 @@ boot_b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; /dev/block/sda41
 	
 	<item>
 		<title>Donate</title>
-		<link>https://krishnayadav.xyz/donate/donate/</link>
+		<link>https://krishnayadav.xyz/donate/</link>
 		<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
 		
-		<guid>https://krishnayadav.xyz/donate/donate/</guid>
+		<guid>https://krishnayadav.xyz/donate/</guid>
 		<description>&lt;p&gt;If you do like my work, you can donate me here:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Monero: 46Es9cwspxoY9hhYMy2mdGLwxpYouLWANaBVWiUhhjE37Mr1bB65cU4C9cLkCiaw3hWVaZij7xZs4DrPVUFxTPy5CCkVvsr&lt;/p&gt;
 &lt;p&gt;Monero QR:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/donate/Monero.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/Monero.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;UPI: obsidianmaximus@paytm&lt;/p&gt;
 &lt;p&gt;QR code for UPI:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/donate/paytm.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://krishnayadav.xyz/paytm.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </description>
